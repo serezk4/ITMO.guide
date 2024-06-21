@@ -23,6 +23,11 @@ public interface ConsoleWorker extends IOWorker<String> {
         write(String.join(System.lineSeparator(), lines) + System.lineSeparator());
     }
 
+    @Override
+    default String read(String prompt) {
+        return IOWorker.super.read(prompt + " ❯ ");
+    }
+
     /**
      * Writes data to the console.
      * @param format format string

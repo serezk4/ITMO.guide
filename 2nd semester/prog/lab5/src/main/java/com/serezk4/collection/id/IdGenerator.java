@@ -16,7 +16,7 @@ public class IdGenerator {
     private static IdGenerator instance = null;
 
     private final FileWorker fileWorker;
-    private long currentId;
+    private int currentId;
 
     /**
      * Creates a new instance of IdGenerator with the specified file path.
@@ -42,9 +42,9 @@ public class IdGenerator {
     private void initialize() {
         try {
             String lastIdStr = fileWorker.read();
-            currentId = lastIdStr != null ? Long.parseLong(lastIdStr) : 0L;
+            currentId = lastIdStr != null ? Integer.parseInt(lastIdStr) : 0;
         } catch (NumberFormatException e) {
-            currentId = 0L;
+            currentId = 0;
             fileWorker.write(Long.toString(currentId));
         }
     }
@@ -54,9 +54,9 @@ public class IdGenerator {
      * @return the newly generated ID
      * @throws IOException if an I/O error occurs
      */
-    public synchronized long generateId() throws IOException {
+    public synchronized int generateId() throws IOException {
         currentId++;
-        fileWorker.write(Long.toString(currentId));
+        fileWorker.write(Long.toString(currentId) + System.lineSeparator());
         return currentId;
     }
 

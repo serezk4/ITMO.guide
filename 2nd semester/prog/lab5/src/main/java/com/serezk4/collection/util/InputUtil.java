@@ -3,7 +3,6 @@ package com.serezk4.collection.util;
 import com.serezk4.collection.model.*;
 import com.serezk4.io.IOWorker;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -18,7 +17,7 @@ public class InputUtil {
      * @return Person
      * @throws InterruptedException if interrupted
      */
-    public Person get(IOWorker<String> io) throws InterruptedException, IOException {
+    public static Person get(IOWorker<String> io) throws InterruptedException {
         Person person = new Person();
 
         while (!input("name", person::setName, Function.identity(), io)) ;
@@ -50,10 +49,10 @@ public class InputUtil {
      * @param <K> type
      * @throws InterruptedException if interrupted
      */
-    private <K> boolean input(String fieldName, Consumer<K> setter, Function<String, K> parser, IOWorker<String> io) throws InterruptedException {
+    private static  <K> boolean input(String fieldName, Consumer<K> setter, Function<String, K> parser, IOWorker<String> io) throws InterruptedException {
         try {
             String line = io.read(" - " + fieldName);
-            if (line == null || line.equals("return")) throw new InterruptedException("вызван return");
+            if (line == null || line.equals("return")) throw new InterruptedException("called return");
 
             if (line.isBlank()) setter.accept(null);
             else setter.accept(parser.apply(line));

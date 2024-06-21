@@ -41,6 +41,7 @@ public class DequeWorker implements IOWorker<String> {
      */
     @Override
     public void insert(String data) {
+        if (data == null) return;
         deque.addAll(Arrays.asList(data.split(System.lineSeparator())));
     }
 

@@ -35,7 +35,7 @@ public class CollectionManager {
     /**
      * Load persons from file.
      */
-    private void load() {
+    public void load() {
         try(Formatter<Person> formatter = new JsonFormatter(FileConfiguration.DATA_FILE_PATH)) {
             list.clear();
             list.addAll(formatter.read());

@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Location class.
  */
-public class Location {
+public class Location implements Comparable<Location> {
     /**
      * X coordinate.
      *
@@ -94,5 +94,10 @@ public class Location {
     @Override
     public int hashCode() {
         return Objects.hash(x, y, name);
+    }
+
+    @Override
+    public int compareTo(Location o) {
+        return Double.compare(this.x + this.y, o.x + o.y);
     }
 }

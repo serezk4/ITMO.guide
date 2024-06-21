@@ -24,14 +24,14 @@ public class Person implements Comparable<Person> {
      * @restriction Field must be generated automatically.
      * @restriction Field can't be null.
      */
-    private Long id;
+    private int id;
 
     {
         try {
             id = IdGenerator.getInstance().generateId();
         } catch (IOException e) {
             System.err.println(e.getMessage());
-            id = -1L;
+            id = -1;
         }
     }
 
@@ -40,7 +40,7 @@ public class Person implements Comparable<Person> {
      *
      * @return Person's id.
      */
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -50,8 +50,7 @@ public class Person implements Comparable<Person> {
      * @param id Person's id.
      * @throws IllegalArgumentException if id is null or less than or equal to 0
      */
-    public void setId(Long id) {
-        if (id == null) throw new IllegalArgumentException("Id can't be null");
+    public void setId(int id) {
         if (id <= 0) throw new IllegalArgumentException("Id must be greater than 0");
         this.id = id;
     }
