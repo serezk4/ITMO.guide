@@ -4,22 +4,18 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import se.ifmo.collection.MyCollection;
-import se.ifmo.collection.objects.City;
+import com.serezk4.collection.model.Person;
 
 import java.lang.reflect.Type;
+import java.util.LinkedList;
+import java.util.List;
 
-public class ResourceDeserializer implements JsonDeserializer<MyCollection> {
+public class ResourceDeserializer implements JsonDeserializer<List<Person>> {
     @Override
-    public MyCollection deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    public List<Person> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
-        MyCollection myCollection = new MyCollection();
-        json.getAsJsonObject().entrySet().forEach(entry -> {
-            long key = Long.parseLong(entry.getKey());
-            City city = context.deserialize(entry.getValue(), City.class);
-            myCollection.put(key, city);
-        });
-
+        List<Person> myCollection = new LinkedList<>();
+        json.getAsJsonArray().forEach(element -> myCollection.add(context.deserialize(element, Person.class)));
         return myCollection;
     }
 }
