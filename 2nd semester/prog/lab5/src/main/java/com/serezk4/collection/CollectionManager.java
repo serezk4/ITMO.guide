@@ -1,6 +1,9 @@
 package com.serezk4.collection;
 
 import com.serezk4.collection.model.Person;
+import com.serezk4.configuration.FileConfiguration;
+import com.serezk4.io.parser.Formatter;
+import com.serezk4.io.parser.json.JsonFormatter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +20,9 @@ public class CollectionManager {
     /**
      * private CollectionManager constructor.
      */
-    private CollectionManager() {}
+    private CollectionManager() {
+        load();
+    }
 
     /**
      * Get instance of CollectionManager.
@@ -25,6 +30,30 @@ public class CollectionManager {
      */
     public static CollectionManager getInstance() {
         return instance == null ? instance = new CollectionManager() : instance;
+    }
+
+    /**
+     * Load persons from file.
+     */
+    private void load() {
+        try(Formatter<Person> formatter = new JsonFormatter(FileConfiguration.DATA_FILE_PATH)) {
+            list.clear();
+            list.addAll(formatter.read());
+            System.out.printf("loaded %d elements%n", list.size());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Save persons to file.
+     */
+    public void save() {
+        try(Formatter<Person> formatter = new JsonFormatter(FileConfiguration.DATA_FILE_PATH)) {
+            formatter.write(list);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     /**

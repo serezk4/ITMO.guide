@@ -32,6 +32,15 @@ public class DequeWorker implements IOWorker<String> {
      */
     @Override
     public void write(String data) {
+        // do nothing
+    }
+
+    /**
+     * Inserts data to the deque.
+     * @param data data
+     */
+    @Override
+    public void insert(String data) {
         deque.addAll(Arrays.asList(data.split(System.lineSeparator())));
     }
 

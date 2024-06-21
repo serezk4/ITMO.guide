@@ -25,8 +25,6 @@ public class BufferedFileWorker implements FileWorker{
     public BufferedFileWorker(Path path, boolean append) throws IOException {
         this.fileReader = new BufferedReader(new FileReader(path.toFile()));
         this.fileWriter = new BufferedWriter(new FileWriter(path.toFile(), append));
-
-        fileReader.reset();
     }
 
     /**

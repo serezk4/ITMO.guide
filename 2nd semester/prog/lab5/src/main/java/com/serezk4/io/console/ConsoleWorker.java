@@ -31,14 +31,4 @@ public interface ConsoleWorker extends IOWorker<String> {
     default void writef(String format, Object... args) {
         write(String.format(format, args));
     }
-
-    /**
-     * Reads data from the console.
-     * @param prompt prompt
-     * @return data
-     */
-    default String get(String prompt) {
-        write(prompt);
-        return read();
-    }
 }

@@ -24,7 +24,16 @@ public class Person implements Comparable<Person> {
      * @restriction Field must be generated automatically.
      * @restriction Field can't be null.
      */
-    private Long id = IdGenerator.getInstance().generateId();
+    private Long id;
+
+    {
+        try {
+            id = IdGenerator.getInstance().generateId();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            id = -1L;
+        }
+    }
 
     /**
      * get Person's id.
@@ -246,8 +255,6 @@ public class Person implements Comparable<Person> {
     public void setLocation(Location location) {
         this.location = location;
     }
-
-    public Person() throws IOException {}
 
     @Override
     public boolean equals(Object o) {

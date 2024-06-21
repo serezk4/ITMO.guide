@@ -62,6 +62,7 @@ public class JsonFormatter implements Formatter<Person> {
             return root.collection();
         } catch (Exception e) {
             System.err.printf("Error processing file %s%n%s%n", filePath.getFileName(), e.getMessage());
+            e.printStackTrace();
             return Collections.emptyList();
         }
     }
