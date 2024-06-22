@@ -1,6 +1,6 @@
 # ОПД, 2 семестр
 
-<img src="https://media1.tenor.com/m/Ay2OdpdJLIgAAAAd/drug-anime.gif" width="50%" height="50%">
+<img src="https://media1.tenor.com/m/Ay2OdpdJLIgAAAAd/drug-anime.gif" width="20%" height="20%">
 
 ## Лабораторные работы
 
