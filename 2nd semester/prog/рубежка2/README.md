@@ -1,0 +1,326 @@
+# Рубежка по проге `2 семестр`
+
+-----------------
+
+### Задание 1 `java.io.* methods`
+> [!IMPORTANT]  
+> Изменить поля `METHOD_NAME` и `METHOD_PARAM_TYPE` на свои
+
+> [!TIP]
+> Пример: для метода `void write(char[] buf)`\
+> `METHOD_NAME = "write";`\
+> `METHOD_PARAM_TYPE = {char[].class}`\
+> `RETURN_TYPE = void.class`
+
+> solution code:
+```java
+import java.io.*;
+import java.lang.reflect.Method;
+import java.util.List;
+
+public class Task1 {
+    public static final List<Class<?>> CLASS_LIST = List.of(BufferedInputStream.class, BufferedOutputStream.class, BufferedReader.class, BufferedWriter.class, ByteArrayInputStream.class, ByteArrayOutputStream.class, CharArrayReader.class, CharArrayWriter.class, Console.class, DataInputStream.class, DataOutputStream.class, File.class, FileDescriptor.class, FileInputStream.class, FileOutputStream.class, FilePermission.class, FileReader.class, FileWriter.class, FilterInputStream.class, FilterOutputStream.class, FilterReader.class, FilterWriter.class, InputStream.class, InputStreamReader.class, LineNumberInputStream.class, LineNumberReader.class, ObjectInputStream.class, ObjectInputStream.GetField.class, ObjectOutputStream.class, ObjectOutputStream.PutField.class, ObjectStreamClass.class, ObjectStreamField.class, OutputStream.class, OutputStreamWriter.class, PipedInputStream.class, PipedOutputStream.class, PipedReader.class, PipedWriter.class, PrintStream.class, PrintWriter.class, PushbackInputStream.class, PushbackReader.class, RandomAccessFile.class, Reader.class, SequenceInputStream.class, SerializablePermission.class, StreamTokenizer.class, StringBufferInputStream.class, StringReader.class, StringWriter.class, Writer.class);
+
+    // ** CHANGE THIS **
+    public static final String METHOD_NAME = "flush";      // required field
+    public static final Class<?>[] METHOD_PARAM_TYPE = {}; // if no params - 'null' | if params - 'byte[].class' (example)
+    public static final Class<?> RETURN_TYPE = void.class; // if void - void.class  | if long - long.class | e.t.c
+    // ** CHANGE THIS **
+
+    public static void main(String[] args) throws IOException {
+        findWithNameAndParam().stream()
+                .map(Class::getName)
+                .forEach(System.out::println);
+    }
+
+    private static List<? extends Class> findWithNameAndParam() throws IOException {
+        return CLASS_LIST.stream()
+                .filter(clazz -> {
+                    try {
+                        Method method = clazz.getMethod(METHOD_NAME, METHOD_PARAM_TYPE);
+                        return method.getReturnType() == RETURN_TYPE;
+                    } catch (Throwable th /*-_-*/) {
+                        return false;
+                    }
+                }).toList();
+    }
+}
+```
+
+-----------------
+
+### Задание 2 `Collections`
+Переписать код в редактор и запустить
+
+> sample code:
+```java
+public class Task2 {
+    public static void main(String[] args) {
+        // insert your code here
+        
+    }
+}
+```
+
+-----------------
+
+### Задание 3 `Stream API`
+
+> [!IMPORTANT]  
+> `.map(s -> s.dupLast())` заменить на `.map(s -> dupLast(s))`\
+> `.map(s -> s.delLast())` заменить на `.map(s -> delLast(s))`\
+> и.т.п
+
+> [!TIP]
+> **Если метода в задании в коде ниже нету - написать свой по той же логике**
+
+> [!WARNING]
+> **Сверьте метод в коде и его описание в задании**
+
+> half-solution code:
+```java
+public class Task3 {
+    public static void main(String[] args) {
+        // insert your code here
+
+        // insert your code here
+    }
+
+    // probably methods in .map()
+    private static String dupLast(String str) {return str + str.charAt(str.length()-1);}
+    private static String dupFirst(String str) {return str.charAt(0) + str;}
+    private static String delFirst(String str) {return str.substring(1);}
+    private static String delLast(String str) {return str.substring(0, str.length()-1);}
+    private static String capFirst(String str) {return str.substring(0,1).toUpperCase() + str.substring(1);}
+    private static String capLast(String str) {return str.substring(0, str.length()-1) + str.substring(str.length()-1).toUpperCase();}
+    private static String swapEdges(String str) {return str.charAt(str.length()-1) + str.substring(1, str.length()-1) + str.charAt(0);}
+}
+
+```
+
+-----------------
+
+### Задание 4
+Смотрим и сравниваем
+
+```java
+Consumer<T>        - (Type) argument --> void
+Predicate<T>       - (Type) argument --> (boolean) result
+Supplier<T>        - void --> (Type) result 
+BinaryOperator<T>  - (Туре) argument1, (Type) argument2 --> (Type) result
+UnaryOperator<T>   - (Type) argument --> (Type) result
+ToIntFunction<T>   - (Type) argument --> (int) result
+Function<T,R>      - (Type1) argument --> (Туре2) result
+```
+
+-----------------
+
+### Задание 5 `TCP / UDP`
+
+> [!TIP]
+> google it or chatgpt it
+
+-----------------
+
+### Задание 6 `БД`
+
+Правильный порядок:
+
+```java
+1. Connection conn = DriverManager.getConnection(...);
+2. Statement st = conn.prepareStatement(...);
+3. ResultSet rs = st.executeQuery(...);
+4. if(rs.next()) String name = rs.getString(...);
+```
+
+-----------------
+
+### Задание 7 `TCP / UDP`
+Смотрим и сравниваем
+
+<p align="center">
+  <img src="https://cdn.rollbar.com/wp-content/uploads/2022/01/java-thread-classes-1024x572.png" alt="Смотрим и сравниваем">
+</p>
+
+возможные переходы:
+
+> [!WARNING]
+> **Код возможно работает неправильно**
+```java
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class Task7 {
+    public static final Map<State, List<State>> transformMap = Map.of(
+            State.NEW , List.of(State.RUNNABLE),
+            State.RUNNABLE , List.of(State.RUNNABLE/* диспетчеризация */, State.BLOCKED, State.WAITING, State.TIMED_WAITING, State.TERMINATED),
+            State.BLOCKED, List.of(State.RUNNABLE),
+            State.WAITING , List.of(State.RUNNABLE),
+            State.TIMED_WAITING , List.of(State.RUNNABLE),
+            State.TERMINATED , List.of()
+    );
+
+    public static void main(String[] args) {
+        // ** CHANGE HERE **
+        System.out.println(from(State.TIMED_WAITING));
+        // ** CHANGE HERE **
+    }
+
+    private static Set<State> to(State state) {
+        return transformMap.entrySet().stream()
+                .filter(e -> e.getValue().contains(state))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+    }
+
+    private static List<State> from(State state) {
+        return transformMap.get(state);
+    }
+
+    public enum State {
+        NEW,
+        RUNNABLE, // (running)
+        BLOCKED,
+        WAITING,
+        TIMED_WAITING,
+        TERMINATED
+    }
+}
+```
+
+-----------------
+
+### Задание 8 `Локализация`
+Ответ нужно дать в формате `старое слово = новое слово`
+
+-----------------
+
+#### Пример задания:
+
+Какая строка должна быть в файле `hello de DE.properties`, чтобы в результате выполнения кода было напечатано `hello weld`?
+
+```java
+Locale locale = new Locale("de_DE");
+ResourceBundle bundle = ResourceBundle.getBundle("hello", locale);
+String hello = bundle. getString("hello");
+String world = bundle. getString("world");
+System.out.println(hello + " " + world);
+```
+
+Содержимое файла `hello.properties`:
+
+```properties
+hello = hello
+world = world
+bundle = bundle 
+```
+
+#### Ответ: `world = weld`
+т.к. мы хотим увидеть `hello weld` => уже `hello = hello` и нам нужно поменять только `world` => `world = weld`
+
+-----------------
+
+### Задание 9 `GUI`
+
+Переписать первую строчку в idea, на месте пропуска чаще всего находится метод,
+начинающийся с add... В появившемся после ввода c. add списке найти наиболее
+логичный вариант и проверить, что idea на него не ругается.
+
+#### Для варианта
+```java
+JButton myControl = new JButton("A New Hope”);
+myControl._______________(new KeyAdapter() {
+            @Override
+            public void keyTyped(_________ ev) {
+                this.setForeground(Color.GRAY);
+            }
+} })3
+```
+#### Решение:
+
+> example code:
+```java
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class Task9 {
+    public static void main(String[] args) {
+        var obj = new JButton("Awesome JButton"); // заменить на свой вариант
+
+        /*
+        написать obj._(new KeyAdapter() {})
+        и пытаться найти замену для _, чтобы IDEA не ругалась
+         */
+        obj.addKeyListener(new KeyAdapter() {
+            // можно не переписывать
+        });
+
+        // мы нашли ответ для первого поля (12.1)
+        // теперь нужно подобрать второе
+
+        // пытаемся с помощью IDEA переопределить метод внутри KeyAdapter (ctrl + O)
+        // ищем подходящий по названию и переопределяем
+        // переписываем тип в параметрах в ответ
+
+        obj.addKeyListener(new KeyAdapter() {
+            // ctrl + O -> select keyTyped(KeyEvent e) -> KeyEvent answer
+            
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+            }
+        });
+    }
+}
+
+```
+
+-----------------
+
+### Задание 10 `Layout`
+Выбрать подходящее из списка
+
+```
+FlowLayout - Дефолтный для JPanel. Последовательное расположение построчно (слева направо, сверху вниз}
+BoxLayout - Последовательное расположение вертикально (Y_AXIS) или горизонтально (X_AXIS)
+BorderLayout - Расположение по границам окна (NORTH, SOUTH, WEST, EAST, CENTER)
+GridLayout - Табличное расположение (ячейки одного размера}
+GridBagLayout - Табличное расположение (ячейки произвольного размера)
+TableLayout - Табличное расположение (произвольные размеры строк и столбцов}
+CardLayout - Расположение для вкладок (выбор отображения элемента среди занимающих одно место}
+SpringLayout - Расположение по расстоянию между парами границ элементов 
+```
+
+-----------------
+
+### Задание 11 `Design patterns`
+Выбрать подходящее из таблицы
+
+| Название                         | Описание                                                                 |
+|----------------------------------|--------------------------------------------------------------------------|
+| **Одиночка (Singleton)**         | Гарантирует, что у класса есть только один экземпляр, и предоставляет глобальную точку доступа к этому экземпляру. |
+| **Строитель (Builder)**          | Отделяет конструирование сложного объекта от его представления, позволяя создавать различные представления одного и того же объекта. |
+| **Фабричный метод (Factory Method)** | Определяет интерфейс для создания объектов, но позволяет подклассам изменить тип создаваемых объектов. |
+| **Абстрактная фабрика (Abstract Factory)** | Предоставляет интерфейс для создания семейств связанных или зависимых объектов, не специфицируя их конкретные классы. |
+| **Прототип (Prototype)**         | Позволяет создавать объекты на основе заранее созданного образца (прототипа), копируя его. |
+| **Адаптер (Adapter)**            | Преобразует интерфейс одного класса в интерфейс другого, ожидаемый клиентом. |
+| **Мост (Bridge)**                | Разделяет абстракцию и реализацию так, чтобы они могли изменяться независимо. |
+| **Компоновщик (Composite)**      | Позволяет сгруппировать объекты в древовидные структуры для представления иерархий "часть-целое". |
+| **Декоратор (Decorator)**        | Динамически добавляет к объекту новые обязанности. |
+| **Фасад (Facade)**               | Предоставляет унифицированный интерфейс к набору интерфейсов в подсистеме, упрощая взаимодействие с ней. |
+| **Приспособленец (Flyweight)**   | Использует разделение для поддержки множества мелких объектов. |
+| **Заместитель (Proxy)**          | Предоставляет суррогат или заместителя для другого объекта для контроля доступа к нему. |
+| **Цепочка обязанностей (Chain of Responsibility)** | Позволяет передавать запросы вдоль цепочки обработчиков, где каждый обработчик решает, обрабатывать запрос или передавать его дальше. |
+| **Команда (Command)**            | Инкапсулирует запрос в виде объекта, позволяя параметризовать клиентов с различными запросами. |
+| **Интерпретатор (Interpreter)**  | Определяет представление грамматики и интерпретатор для языка. |
+| **Итератор (Iterator)**          | Предоставляет способ последовательного доступа ко всем элементам коллекции без раскрытия ее внутреннего представления. |
+| **Посредник (Mediator)**         | Определяет объект, который инкапсулирует способ взаимодействия множества объектов. |
+| **Хранитель (Memento)**          | Сохраняет и восстанавливает состояние объекта, не нарушая его инкапсуляции. |
+| **Наблюдатель (Observer)**       | Определяет зависимость "один ко многим" между объектами так, чтобы при изменении состояния одного объекта все зависящие от него объекты уведомлялись и обновлялись автоматически. |
+| **Состояние (State)**            | Позволяет объекту изменять свое поведение при изменении его внутреннего состояния. |
+| **Стратегия (Strategy)**         | Определяет семейство алгоритмов, инкапсулирует их и делает их взаимозаменяемыми. |
+| **Шаблонный метод (Template Method)** | Определяет скелет алгоритма в методе, перекладывая реализацию некоторых шагов на подклассы. |
+| **Посетитель (Visitor)**         | Позволяет добавлять новые операции к объектам без изменения самих объектов. |
