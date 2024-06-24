@@ -25,8 +25,6 @@ public class Handler implements Runnable {
 
     private final Router router = new Router();
 
-    private int recursionDepth;
-
     /**
      * Basic constructor.
      *
@@ -49,7 +47,6 @@ public class Handler implements Runnable {
         try {
             String line;
             while ((line = console.read("")) != null) {
-                recursionDepth = 0;
                 handle(line);
                 while (!script.ready()) handle(script.read());
             }
