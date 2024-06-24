@@ -37,7 +37,9 @@ public class ExecuteScript extends Command {
         if (!path.toFile().canRead()) return new Response("Not enough rights to read file.");
 
         try(FileWorker file = new BufferedFileWorker(path)) {
-            return new Response("Script loaded from file %s".formatted(path.toString()), Collections.emptyList(), file.read());
+            StringBuilder script = new StringBuilder();
+            while (file.ready()) script.append(file.read()).append(System.lineSeparator());
+            return new Response("Script loaded from file %s".formatted(path.toString()), Collections.emptyList(), script.toString());
         } catch (Exception e) {
             return new Response("error caught: %s".formatted(e.getMessage()));
         }

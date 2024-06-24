@@ -3,7 +3,6 @@ package com.serezk4.chat;
 import com.serezk4.collection.CollectionManager;
 import com.serezk4.collection.model.Person;
 import com.serezk4.collection.util.InputUtil;
-import com.serezk4.configuration.RecursionConfiguration;
 import com.serezk4.io.IOWorker;
 import com.serezk4.io.console.ConsoleWorker;
 import com.serezk4.io.trasnfer.Request;
@@ -44,9 +43,9 @@ public class Handler implements Runnable {
      */
     @Override
     public void run() {
-        console.writeln("");
-
+        console.writeln("welcome to lab5!");
         CollectionManager.getInstance().load();
+
         try {
             String line;
             while ((line = console.read("")) != null) {
@@ -63,15 +62,9 @@ public class Handler implements Runnable {
      * Handle the input line.
      *
      * @param line input line
-     * @throws Exception if something goes wrong ))
      */
-    private void handle(String line) throws Exception {
-        if (recursionDepth >= RecursionConfiguration.MAX_RECURSION_DEPTH) {
-            console.writef("recursion depth exceeded %d%n", RecursionConfiguration.MAX_RECURSION_DEPTH);
-            script.close();
-            return;
-        }
-
+    private void handle(String line) {
+        if (line == null) return;
         print(router.route(parse(line)));
     }
 
@@ -83,7 +76,7 @@ public class Handler implements Runnable {
     private void print(Response response) {
         if (response.message() != null && !response.message().isBlank()) console.writeln(response.message());
         if (response.persons() != null && !response.persons().isEmpty()) response.persons().stream().map(Person::toString).forEach(console::writeln);
-        if (response.script() != null && !response.script().isEmpty()) script.write(response.script());
+        if (response.script() != null && !response.script().isEmpty()) script.insert(response.script());
     }
 
     /**

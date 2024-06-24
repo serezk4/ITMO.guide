@@ -1,5 +1,6 @@
 package com.serezk4.io.deque;
 
+import com.serezk4.configuration.RecursionConfiguration;
 import com.serezk4.io.IOWorker;
 
 import java.util.ArrayDeque;
@@ -14,6 +15,7 @@ import java.util.Deque;
  */
 public class DequeWorker implements IOWorker<String> {
     private final Deque<String> deque = new ArrayDeque<>();
+    private int recursionDepth;
 
     /**
      * Reads the first element from the deque.
@@ -22,6 +24,11 @@ public class DequeWorker implements IOWorker<String> {
      */
     @Override
     public String read() {
+        if (recursionDepth > RecursionConfiguration.MAX_RECURSION_DEPTH) {
+            close();
+            recursionDepth = 0;
+            return null;
+        }
         return deque.pollFirst();
     }
 
@@ -43,6 +50,7 @@ public class DequeWorker implements IOWorker<String> {
     public void insert(String data) {
         if (data == null) return;
         deque.addAll(Arrays.asList(data.split(System.lineSeparator())));
+        recursionDepth++;
     }
 
     /**
