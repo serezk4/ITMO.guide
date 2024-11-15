@@ -57,7 +57,7 @@ public final class Server implements AutoCloseable, Runnable {
     /**
      * Logger for recording server activities, errors, and debugging information.
      */
-    private static final Logger log = LoggerFactory.getLogger(Server.class);
+    private static final Logger log = LoggerFactory.getLogger(Server.class.getSimpleName());
 
     /**
      * Size of the buffer used for reading and writing data, in bytes.
@@ -313,7 +313,6 @@ public final class Server implements AutoCloseable, Runnable {
      * @throws IOException if an I/O error occurs during selector operations.
      */
     private void processSelectorKeys() throws IOException {
-        console.write(".");
         selector.select(100);
 
         Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
