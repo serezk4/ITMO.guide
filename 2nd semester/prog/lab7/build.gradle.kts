@@ -19,6 +19,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.6")
 
     implementation("org.apache.commons:commons-lang3:3.17.0")
+    implementation("org.postgresql:postgresql:42.7.3")
 }
 
 tasks.test {

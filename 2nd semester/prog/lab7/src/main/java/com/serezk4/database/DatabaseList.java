@@ -8,20 +8,56 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 /**
- * DatabaseList class.
- * Extends {@link ArrayList} of {@link Person}.
- * Overrides {@link #add(Person)}, {@link #remove(Object)}, {@link #remove(int)} methods.
+ * A specialized list for managing {@link Person} objects with database integration.
+ *
+ * <p>The {@code DatabaseList} class extends {@link ArrayList} and overrides key methods to
+ * integrate with the {@link PersonService}. This ensures that changes to the list are reflected
+ * in the database and vice versa.</p>
+ *
+ * <p>Key Features:</p>
+ * <ul>
+ *     <li>Adds a {@link Person} to the list and persists it to the database.</li>
+ *     <li>Removes a {@link Person} from the list and deletes it from the database by its ID.</li>
+ *     <li>Overrides the {@link #clear()} method but marks it as deprecated since it is not implemented.</li>
+ * </ul>
+ *
+ * <p>Usage:</p>
+ * <pre>
+ * DatabaseList personList = new DatabaseList();
+ * Person person = new Person(1, "John Doe");
+ * personList.add(person); // Adds person to the list and saves it to the database
+ * personList.remove(person); // Removes person from the list and the database
+ * </pre>
+ *
+ * <p>Thread Safety:</p>
+ * <p>This class is not thread-safe. External synchronization is required if used in a
+ * concurrent environment.</p>
+ *
+ * @see Person
+ * @see PersonService
+ * @author serezk4
  */
 public class DatabaseList extends ArrayList<Person> {
     /**
-     * Basic logger for {@link DatabaseList} class.
+     * Logger for recording actions performed on the {@code DatabaseList}.
      */
     private static final Logger log = LoggerFactory.getLogger(DatabaseList.class);
 
     /**
-     * Ensures that this collection contains the specified element (optional operation).
-     * @param person element whose presence in this collection is to be ensured
-     * @return true if this collection changed as a result of the call
+     * Adds a {@link Person} to the list and persists it to the database.
+     *
+     * <p>This method ensures that the specified {@link Person} is saved to the database using the
+     * {@link PersonService}. If the save operation succeeds, the person is added to the list.</p>
+     *
+     * <p>Workflow:</p>
+     * <ul>
+     *     <li>Checks if the {@code person} is not {@code null}.</li>
+     *     <li>Calls {@link PersonService#save(Person)} to persist the person to the database.</li>
+     *     <li>If successful, adds the person to the list and logs the action.</li>
+     * </ul>
+     *
+     * @param person the {@link Person} to be added to the list.
+     * @return {@code true} if the person was added to the list and saved to the database; {@code false} otherwise.
      */
     @Override
     public boolean add(Person person) {
@@ -32,9 +68,20 @@ public class DatabaseList extends ArrayList<Person> {
     }
 
     /**
-     * Removes the element at the specified position in this list (optional operation).
-     * @param index the index of the element to be removed
-     * @return the element that was removed from the list
+     * Removes the {@link Person} at the specified index and deletes it from the database.
+     *
+     * <p>This method retrieves the {@link Person} at the specified index, removes it from the list,
+     * and deletes it from the database by its ID using the {@link PersonService}.</p>
+     *
+     * <p>Workflow:</p>
+     * <ul>
+     *     <li>Retrieves the person at the specified index.</li>
+     *     <li>Calls {@link PersonService#removeById(int)} to delete the person from the database.</li>
+     *     <li>Removes the person from the list and logs the action.</li>
+     * </ul>
+     *
+     * @param index the index of the {@link Person} to remove.
+     * @return the {@link Person} that was removed from the list.
      */
     @Override
     public Person remove(int index) {
@@ -45,9 +92,20 @@ public class DatabaseList extends ArrayList<Person> {
     }
 
     /**
-     * Removes the first occurrence of the specified element from this list, if it is present.
-     * @param o element to be removed from this list, if present
-     * @return true if this list contained the specified element
+     * Removes the {@link Person} at the specified index and deletes it from the database.
+     *
+     * <p>This method retrieves the {@link Person} at the specified index, removes it from the list,
+     * and deletes it from the database by its ID using the {@link PersonService}.</p>
+     *
+     * <p>Workflow:</p>
+     * <ul>
+     *     <li>Retrieves the person at the specified index.</li>
+     *     <li>Calls {@link PersonService#removeById(int)} to delete the person from the database.</li>
+     *     <li>Removes the person from the list and logs the action.</li>
+     * </ul>
+     *
+     * @param o object to remove
+     * @return the {@link Person} that was removed from the list.
      */
     @Override
     public boolean remove(Object o) {
@@ -61,8 +119,14 @@ public class DatabaseList extends ArrayList<Person> {
     }
 
     /**
-     * Removes all of the elements from this list (optional operation).
-     * The list will be empty after this call returns.
+     * Clears all elements from the list.
+     *
+     * <p>This method is marked as deprecated and throws an {@link UnsupportedOperationException}
+     * since it is not implemented. Clearing the list and database simultaneously is not supported
+     * by this class.</p>
+     *
+     * @throws UnsupportedOperationException always thrown since this method is not implemented.
+     * @deprecated Clearing all elements is not supported.
      */
     @Deprecated
     @Override
