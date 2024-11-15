@@ -3,7 +3,7 @@ package com.serezk4.collection.util;
 import com.serezk4.database.model.*;
 import com.serezk4.io.IOWorker;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -35,28 +35,33 @@ public class InputUtil {
      */
     public static Person get(IOWorker<String> io) throws InterruptedException {
         Person person = new Person();
-
-        while (!input("name", person::setName, Function.identity(), io)) ;
-        while (!input("height", person::setHeight, Integer::valueOf, io)) ;
-        while (!input("weight", person::setWeight, Integer::valueOf, io)) ;
-        while (!input("hair color %s".formatted(
-                Arrays.toString(Color.values())), person::setHairColor, Color::valueOf, io)
-        ) ;
-        while (!input("nationality %s".formatted(
-                Arrays.toString(Country.values())), person::setNationality, Country::valueOf, io)
-        ) ;
-
         Coordinates coordinates = new Coordinates();
-        while (!input("cord x", coordinates::setX, Integer::valueOf, io)) ;
-        while (!input("cord y", coordinates::setY, Integer::valueOf, io)) ;
+        Location location = new Location();
+
+        final List<FieldRequest<?>> fields = List.of(
+                new FieldRequest<>("name", person::setName, Function.identity()),
+                new FieldRequest<>("height", person::setHeight, Integer::valueOf),
+                new FieldRequest<>("weight", person::setWeight, Integer::valueOf),
+                new FieldRequest<>("hair %s".formatted(Color.formattedList()), person::setHairColor, Color::valueOf),
+                new FieldRequest<>("country %s".formatted(Country.formattedList()), person::setNationality, Country::valueOf),
+                new FieldRequest<>("cord x", coordinates::setX, Integer::valueOf),
+                new FieldRequest<>("cord y", coordinates::setY, Integer::valueOf),
+                new FieldRequest<>("location x", location::setX, Float::valueOf),
+                new FieldRequest<>("location y", location::setY, Double::valueOf)
+        );
+
+        for (FieldRequest<?> fieldRequest : fields) fieldRequest.get(io);
+
+        person.setLocation(location);
         person.setCoordinates(coordinates);
 
-        Location location = new Location();
-        while (!input("location x", location::setX, Float::valueOf, io)) ;
-        while (!input("location y", location::setY, Double::valueOf, io)) ;
-        person.setLocation(location);
-
         return person;
+    }
+
+    private record FieldRequest<K>(String name, Consumer<K> setter, Function<String, K> parser) {
+        public void get(IOWorker<String> io) throws InterruptedException {
+            while (!input(name, setter, parser, io)) ;
+        }
     }
 
     /**
@@ -82,7 +87,7 @@ public class InputUtil {
     ) throws InterruptedException {
         try {
             String line = io.read(" - " + fieldName);
-            if (line == null || line.equals("return")) throw new InterruptedException("called return");
+            if (line == null || line.equals("return") || line.equals("break")) throw new InterruptedException("called return");
 
             if (line.isBlank()) setter.accept(null);
             else setter.accept(parser.apply(line));
