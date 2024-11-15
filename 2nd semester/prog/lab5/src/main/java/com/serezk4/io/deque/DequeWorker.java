@@ -8,19 +8,30 @@ import java.util.Arrays;
 import java.util.Deque;
 
 /**
- * Worker for reading and writing data to the deque.
- * (for command exec)
+ * Worker for reading and writing data to a deque.
+ * <p>
+ * This class implements the {@link IOWorker} interface and uses a {@link Deque}
+ * to manage data, primarily for handling command execution. It ensures that the
+ * recursion depth does not exceed the configured maximum limit.
+ * </p>
  *
  * @see IOWorker
+ * @see RecursionConfiguration
+ * @since 1.0
  */
-public class DequeWorker implements IOWorker<String> {
+public final class DequeWorker implements IOWorker<String> {
+
     private final Deque<String> deque = new ArrayDeque<>();
     private int recursionDepth;
 
     /**
-     * Reads the first element from the deque.
+     * Reads and removes the first element from the deque.
+     * <p>
+     * If the recursion depth exceeds {@link RecursionConfiguration#MAX_RECURSION_DEPTH},
+     * the deque is cleared, and recursion depth is reset to prevent stack overflow.
+     * </p>
      *
-     * @return the first element from the deque
+     * @return the first element from the deque, or {@code null} if the deque is empty
      */
     @Override
     public String read() {
@@ -29,27 +40,36 @@ public class DequeWorker implements IOWorker<String> {
             recursionDepth = 0;
             return null;
         }
+
         return deque.pollFirst();
     }
 
     /**
      * Writes data to the deque.
+     * <p>
+     * This method does nothing, as the {@link DequeWorker} is designed to
+     * insert data using the {@link #insert(String)} method instead.
+     * </p>
      *
-     * @param data data to write
+     * @param data the data to write
      */
     @Override
-    public void write(String data) {
-        // do nothing
+    public void write(final String data) {
     }
 
     /**
-     * Inserts data to the deque.
+     * Inserts data into the deque.
+     * <p>
+     * The input data is split by line separators and added to the deque.
+     * Increments the recursion depth with each insertion.
+     * </p>
      *
-     * @param data data
+     * @param data the data to insert
      */
     @Override
-    public void insert(String data) {
+    public void insert(final String data) {
         if (data == null) return;
+
         deque.addAll(Arrays.asList(data.split(System.lineSeparator())));
         recursionDepth++;
     }
@@ -57,7 +77,7 @@ public class DequeWorker implements IOWorker<String> {
     /**
      * Checks if the deque is empty.
      *
-     * @return true if the deque is empty, false otherwise
+     * @return {@code true} if the deque is empty, {@code false} otherwise
      */
     @Override
     public boolean ready() {
@@ -65,7 +85,10 @@ public class DequeWorker implements IOWorker<String> {
     }
 
     /**
-     * Clears the deque.
+     * Clears all data from the deque.
+     * <p>
+     * Resets the deque to an empty state, ensuring no leftover data remains.
+     * </p>
      */
     @Override
     public void close() {

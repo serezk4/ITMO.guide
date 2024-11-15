@@ -27,7 +27,7 @@ import static com.serezk4.collection.util.InputUtil.get;
  * @version 1.0
  * @since 1.0
  */
-public class Handler implements Runnable {
+public final class Handler implements Runnable {
     private final ConsoleWorker console;
     private final IOWorker<String> script;
 
@@ -39,7 +39,10 @@ public class Handler implements Runnable {
      * @param console the console worker for user interaction
      * @param script  the script worker for reading script inputs
      */
-    public Handler(ConsoleWorker console, IOWorker<String> script) {
+    public Handler(
+            final ConsoleWorker console,
+            final IOWorker<String> script
+    ) {
         this.console = console;
         this.script = script;
     }
@@ -76,7 +79,7 @@ public class Handler implements Runnable {
      *
      * @param line the input line to process
      */
-    private void handle(String line) {
+    private void handle(final String line) {
         if (line == null) return;
         print(router.route(parse(line)));
     }
@@ -90,7 +93,7 @@ public class Handler implements Runnable {
      *
      * @param response the response to print
      */
-    private void print(Response response) {
+    private void print(final Response response) {
         if (response.message() != null && !response.message().isBlank()) console.writeln(response.message());
         if (response.persons() != null && !response.persons().isEmpty())
             response.persons().stream().map(Person::toString).forEach(console::writeln);
@@ -109,7 +112,7 @@ public class Handler implements Runnable {
      * @see Request
      * @see InputUtil
      */
-    private Request parse(String line) {
+    private Request parse(final String line) {
         final String[] parts = line.split(" ", 2);
 
         final String command = parts[0];

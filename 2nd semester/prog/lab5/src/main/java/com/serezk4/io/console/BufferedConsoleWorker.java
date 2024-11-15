@@ -3,23 +3,30 @@ package com.serezk4.io.console;
 import java.io.*;
 
 /**
- * Buffered implementation of the ConsoleWorker interface.
+ * Buffered implementation of the {@link ConsoleWorker} interface.
+ * <p>
+ * This class provides buffered input and output functionality for the console using
+ * {@link BufferedReader} and {@link BufferedWriter}. It supports reading from and
+ * writing to the console with efficient buffering.
+ * </p>
  *
  * @see ConsoleWorker
- * <p>
- * for more information >>
  * @see BufferedReader
  * @see BufferedWriter
+ * @since 1.0
  */
+public final class BufferedConsoleWorker implements ConsoleWorker {
 
-public class BufferedConsoleWorker implements ConsoleWorker {
     private final BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
     private final BufferedWriter consoleWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 
     /**
-     * Reads data from the console.
+     * Reads a line of input from the console.
+     * <p>
+     * This method blocks until a line of text is entered or an error occurs.
+     * </p>
      *
-     * @return data in String format
+     * @return the input string entered by the user, or {@code null} if an I/O error occurs
      */
     @Override
     public String read() {
@@ -31,12 +38,15 @@ public class BufferedConsoleWorker implements ConsoleWorker {
     }
 
     /**
-     * Writes data to the console.
+     * Writes a string to the console.
+     * <p>
+     * The string is appended to the console output and flushed immediately.
+     * </p>
      *
-     * @param data data in String format
+     * @param data the string to write to the console
      */
     @Override
-    public void write(String data) {
+    public void write(final String data) {
         try {
             consoleWriter.append(data).flush();
         } catch (IOException ignored) {
@@ -44,9 +54,13 @@ public class BufferedConsoleWorker implements ConsoleWorker {
     }
 
     /**
-     * Checks if the console is ready to read data.
+     * Checks if the console input stream is ready for reading.
+     * <p>
+     * This method returns {@code true} if there is data available in the console
+     * input buffer.
+     * </p>
      *
-     * @return true if the console is ready, false otherwise
+     * @return {@code true} if the console is ready to read, {@code false} otherwise
      */
     @Override
     public boolean ready() {
@@ -58,9 +72,13 @@ public class BufferedConsoleWorker implements ConsoleWorker {
     }
 
     /**
-     * Closes the console reader and writer.
+     * Closes the console reader and writer streams.
+     * <p>
+     * Once closed, the {@link BufferedConsoleWorker} cannot perform further
+     * read or write operations.
+     * </p>
      *
-     * @throws Exception if an I/O error occurs
+     * @throws Exception if an error occurs during closing
      */
     @Override
     public void close() throws Exception {

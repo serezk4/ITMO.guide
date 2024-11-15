@@ -7,47 +7,61 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Response class.
+ * Represents a response containing a message, a list of persons, and an optional script.
+ * <p>
+ * This record is used to encapsulate the result of an operation, including optional
+ * metadata or additional instructions (e.g., a script to execute).
+ * </p>
  *
- * @param message Response message.
- * @param persons List of persons.
- * @param script  script to execute (for exec)
+ * @param message the response message, providing details about the result or status
+ * @param persons the list of {@link Person} objects associated with the response
+ * @param script  an optional script to execute (used for specific operations)
+ * @since 1.0
  */
 public record Response(String message, List<Person> persons, String script) {
 
     /**
-     * Constructor for the response.
+     * Constructs a {@code Response} with a message and a list of persons.
      *
-     * @param message Response message.
-     * @param persons List of persons.
+     * @param message the response message
+     * @param persons the list of {@link Person} objects
      */
-    public Response(String message, List<Person> persons) {
+    public Response(
+            final String message,
+            final List<Person> persons
+    ) {
         this(message, persons, null);
     }
 
     /**
-     * Constructor for the response.
+     * Constructs a {@code Response} with a message and a variable number of persons.
      *
-     * @param message Response message.
-     * @param persons List of persons.
+     * @param message the response message
+     * @param persons the {@link Person} objects
      */
-    public Response(String message, Person... persons) {
+    public Response(
+            final String message,
+            final Person... persons
+    ) {
         this(message, Arrays.asList(persons), null);
     }
 
     /**
-     * Constructor for the response.
+     * Constructs a {@code Response} with only a message.
      *
-     * @param message Response message.
+     * @param message the response message
      */
-    public Response(String message) {
+    public Response(final String message) {
         this(message, Collections.emptyList(), null);
     }
 
     /**
-     * Constructor for empty response.
+     * Returns an empty {@code Response}.
+     * <p>
+     * This method provides a pre-defined response with no message, persons, or script.
+     * </p>
      *
-     * @return empty response
+     * @return an empty {@code Response} instance
      */
     public static Response empty() {
         return new Response(null);

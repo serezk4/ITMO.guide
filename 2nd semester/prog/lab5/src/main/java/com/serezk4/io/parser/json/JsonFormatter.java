@@ -16,11 +16,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Class for reading and writing collection from/to file in JSON format
+ * A JSON-based implementation of the {@link Formatter} interface for handling collections of {@link Person}.
+ * <p>
+ * This class uses Gson for serialization and deserialization of {@link Person} objects and provides
+ * methods to read collections from and write collections to JSON files.
+ * </p>
  *
  * @see Formatter
+ * @see Person
+ * @see Gson
+ * @see BufferedFileWorker
+ * @since 1.0
  */
 public class JsonFormatter implements Formatter<Person> {
+
     private static final Gson gson = new GsonBuilder()
             .setLenient()
             .registerTypeAdapterFactory(new IgnoreFailureTypeAdapterFactory())
@@ -29,14 +38,22 @@ public class JsonFormatter implements Formatter<Person> {
 
     private final Path filePath;
 
-    public JsonFormatter(Path filePath) {
+    /**
+     * Constructs a {@code JsonFormatter} for the specified file path.
+     *
+     * @param filePath the path to the JSON file
+     */
+    public JsonFormatter(final Path filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * read collection from file
+     * Reads a collection of {@link Person} objects from the JSON file.
+     * <p>
+     * If the file does not exist, is not readable, or is empty, an empty list is returned.
+     * </p>
      *
-     * @return collection of persons
+     * @return a list of {@link Person} objects, or an empty list if the file cannot be read
      */
     @Override
     public List<Person> read() {
@@ -68,12 +85,15 @@ public class JsonFormatter implements Formatter<Person> {
     }
 
     /**
-     * write collection to file
+     * Writes a collection of {@link Person} objects to the JSON file.
+     * <p>
+     * If the file is not writable or does not exist, the operation will be aborted.
+     * </p>
      *
-     * @param values collection of persons
+     * @param values the collection of {@link Person} objects to write
      */
     @Override
-    public void write(List<Person> values) {
+    public void write(final List<Person> values) {
         if (Files.notExists(filePath)) {
             System.err.printf("File %s not found%n", filePath.getFileName());
             return;
@@ -91,13 +111,30 @@ public class JsonFormatter implements Formatter<Person> {
         }
     }
 
+    /**
+     * Checks if the file is ready for I/O operations.
+     * <p>
+     * Ensures the file exists, is not a directory, and is both readable and writable.
+     * </p>
+     *
+     * @return {@code true} if the file is ready, {@code false} otherwise
+     */
     @Override
     public boolean ready() {
-        return !Files.isDirectory(filePath) && Files.exists(filePath) && Files.isReadable(filePath) && Files.isWritable(filePath);
+        return !Files.isDirectory(filePath)
+                && Files.exists(filePath)
+                && Files.isReadable(filePath)
+                && Files.isWritable(filePath);
     }
 
+    /**
+     * Closes the formatter.
+     * <p>
+     * This implementation does not require any specific cleanup, so this method is empty.
+     * </p>
+     */
     @Override
     public void close() {
-        // do nothing
+        // Do nothing
     }
 }
