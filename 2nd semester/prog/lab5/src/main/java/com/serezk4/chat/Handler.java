@@ -31,8 +31,6 @@ public final class Handler implements Runnable {
     private final ConsoleWorker console;
     private final IOWorker<String> script;
 
-    private final Router router = new Router();
-
     /**
      * Creates a new {@code Handler} instance.
      *
@@ -81,7 +79,7 @@ public final class Handler implements Runnable {
      */
     private void handle(final String line) {
         if (line == null) return;
-        print(router.route(parse(line)));
+        print(Router.getInstance().route(parse(line)));
     }
 
     /**
@@ -119,7 +117,7 @@ public final class Handler implements Runnable {
         final List<String> arguments = parts.length > 1 ? Arrays.asList(parts[1].split(" ")) : Collections.emptyList();
         final List<Person> persons = new LinkedList<>();
 
-        int elementsRequired = router.getElementsRequiredFor(command);
+        int elementsRequired = Router.getInstance().getElementsRequiredFor(command);
 
         while (elementsRequired-- > 0) {
             try {

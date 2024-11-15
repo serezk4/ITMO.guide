@@ -20,7 +20,38 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 1.0
  */
-public class Router {
+public final class Router {
+
+    /**
+     * The single instance of the {@code Router} class.
+     * <p>
+     * This field is lazily initialized and will hold the only instance of {@code Router}.
+     * </p>
+     */
+    private static Router instance;
+
+    /**
+     * Private constructor to prevent instantiation.
+     * <p>
+     * The constructor is private to enforce the Singleton design pattern, ensuring that
+     * the {@code Router} class cannot be instantiated directly.
+     * </p>
+     */
+    private Router() {
+    }
+
+    /**
+     * Returns the single instance of the {@code Router} class.
+     * <p>
+     * If the instance does not already exist, it is created and returned. Subsequent calls
+     * to this method will return the same instance.
+     * </p>
+     *
+     * @return the single instance of the {@code Router} class
+     */
+    public static Router getInstance() {
+        return instance == null ? instance = new Router() : instance;
+    }
 
     /**
      * Routes the specified {@link Request} to the corresponding {@link Command}.
