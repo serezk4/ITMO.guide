@@ -6,6 +6,7 @@ import java.util.Objects;
  * Coordinates class.
  */
 public class Coordinates {
+
     /**
      * X coordinate.
      * <p>
@@ -14,6 +15,7 @@ public class Coordinates {
      * @restriction Field can't be null
      */
     private Integer x;
+
     /**
      * Y coordinate.
      * <p>
@@ -72,5 +74,21 @@ public class Coordinates {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    /**
+     * Returns a string representation of the {@code Coordinates} object.
+     * <p>
+     * The string includes the {@code x} and {@code y} coordinates, formatted in a compact style.
+     * </p>
+     *
+     * @return a string representation of the {@code Coordinates} object
+     */
+    @Override
+    public String toString() {
+        return "{" +
+                "x=" + x +
+                ", y=" + y +
+                "}";
     }
 }

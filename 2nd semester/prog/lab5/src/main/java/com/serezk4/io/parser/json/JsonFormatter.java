@@ -7,10 +7,12 @@ import com.serezk4.io.file.BufferedFileWorker;
 import com.serezk4.io.file.FileWorker;
 import com.serezk4.io.parser.Formatter;
 import com.serezk4.io.parser.json.adapters.IgnoreFailureTypeAdapterFactory;
+import com.serezk4.io.parser.json.adapters.LocalDateAdapter;
 import com.serezk4.io.parser.json.adapters.ResourceDeserializer;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class JsonFormatter implements Formatter<Person> {
             .setLenient()
             .registerTypeAdapterFactory(new IgnoreFailureTypeAdapterFactory())
             .registerTypeAdapter(LinkedList.class, new ResourceDeserializer())
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .create();
 
     private final Path filePath;

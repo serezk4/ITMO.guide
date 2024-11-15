@@ -273,4 +273,29 @@ public class Person implements Comparable<Person> {
     public int compareTo(Person o) {
         return Double.compare(this.weight / Math.pow(this.height, 2), o.weight / Math.pow(o.height, 2));
     }
+
+    /**
+     * Returns a string representation of the {@code Person} object.
+     * <p>
+     * The string includes all the fields of the {@code Person} object, formatted
+     * in a readable, multiline style. If optional fields such as {@code nationality} or
+     * {@code location} are not set, they are displayed as "unspecified".
+     * </p>
+     *
+     * @return a string representation of the {@code Person} object
+     */
+    @Override
+    public String toString() {
+        return "Person {" +
+                "\n  id=" + id +
+                ",\n  name='" + name + '\'' +
+                ",\n  coordinates=" + coordinates +
+                ",\n  creationDate=" + creationDate +
+                ",\n  height=" + height +
+                ",\n  weight=" + weight +
+                ",\n  hairColor=" + hairColor +
+                ",\n  nationality=" + (nationality != null ? nationality : "unspecified") +
+                ",\n  location=" + (location != null ? location : "unspecified") +
+                "\n}";
+    }
 }

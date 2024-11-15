@@ -98,4 +98,13 @@ public class Location implements Comparable<Location> {
     public int compareTo(Location o) {
         return Double.compare(this.x + this.y, o.x + o.y);
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "x=" + x +
+                ", y=" + y +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
