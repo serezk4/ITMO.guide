@@ -11,7 +11,7 @@ import com.serezk4.io.trasnfer.Response;
  */
 public class RemoveById extends Command {
     protected RemoveById() {
-        super("remove_by_id", new String[]{"id"},"removes element by id");
+        super("remove_by_id", new String[]{"id"}, "removes element by id");
     }
 
     /**
@@ -30,7 +30,8 @@ public class RemoveById extends Command {
         if (!request.args().get(0).matches("^(0|[1-9]\\d{0,9}|214748364[0-7])$")) return new Response("Invalid id");
 
         final int targetId = Integer.parseInt(request.args().get(0));
-        if (CollectionManager.getInstance().list().stream().noneMatch(person -> person.getId() == targetId)) return new Response("Person with id %d not found.".formatted(targetId));
+        if (CollectionManager.getInstance().list().stream().noneMatch(person -> person.getId() == targetId))
+            return new Response("Person with id %d not found.".formatted(targetId));
         CollectionManager.getInstance().list().removeIf(person -> person.getId() == targetId);
 
         return new Response("Person removed. Removed element:");

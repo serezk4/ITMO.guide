@@ -16,6 +16,7 @@ public class RemoveGreater extends Command {
 
     /**
      * Removes all elements greater than given
+     *
      * @param request request to execute
      * @return response says that elements are removed
      * <p>

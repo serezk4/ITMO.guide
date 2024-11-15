@@ -4,19 +4,21 @@ import java.io.*;
 
 /**
  * Buffered implementation of the ConsoleWorker interface.
- * @see ConsoleWorker
  *
+ * @see ConsoleWorker
+ * <p>
  * for more information >>
  * @see BufferedReader
  * @see BufferedWriter
  */
 
-public class BufferedConsoleWorker implements ConsoleWorker{
+public class BufferedConsoleWorker implements ConsoleWorker {
     private final BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
     private final BufferedWriter consoleWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 
     /**
      * Reads data from the console.
+     *
      * @return data in String format
      */
     @Override
@@ -30,17 +32,20 @@ public class BufferedConsoleWorker implements ConsoleWorker{
 
     /**
      * Writes data to the console.
+     *
      * @param data data in String format
      */
     @Override
     public void write(String data) {
         try {
             consoleWriter.append(data).flush();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 
     /**
      * Checks if the console is ready to read data.
+     *
      * @return true if the console is ready, false otherwise
      */
     @Override
@@ -54,6 +59,7 @@ public class BufferedConsoleWorker implements ConsoleWorker{
 
     /**
      * Closes the console reader and writer.
+     *
      * @throws Exception if an I/O error occurs
      */
     @Override

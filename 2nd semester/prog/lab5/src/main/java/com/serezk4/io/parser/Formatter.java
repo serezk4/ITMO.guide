@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Interface for formatting data.
+ *
  * @param <T> transfer data type
  */
-public interface Formatter<T> extends IOWorker<List<T>> {}
+public interface Formatter<T> extends IOWorker<List<T>> {
+}

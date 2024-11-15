@@ -17,6 +17,7 @@ public class SumOfHeight extends Command {
 
     /**
      * Gets sum of height of all elements
+     *
      * @param request request to execute
      * @return response with sum of height
      * <p>

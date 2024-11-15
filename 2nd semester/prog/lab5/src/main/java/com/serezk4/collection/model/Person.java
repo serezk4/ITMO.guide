@@ -17,6 +17,13 @@ import java.util.Objects;
  */
 public class Person implements Comparable<Person> {
     /**
+     * Person's creation date.
+     *
+     * @restriction Field can't be null.
+     * @restriction Field must be generated automatically.
+     */
+    private final LocalDate creationDate = LocalDate.now(ZoneId.systemDefault());
+    /**
      * Person's id.
      *
      * @restriction Field must be greater than 0.
@@ -25,6 +32,46 @@ public class Person implements Comparable<Person> {
      * @restriction Field can't be null.
      */
     private int id;
+    /**
+     * Person's name.
+     *
+     * @restriction Field can't be null.
+     * @restriction Field can't be empty.
+     */
+    private String name;
+    /**
+     * Person's coordinates.
+     *
+     * @restriction Field can't be null.
+     */
+    private Coordinates coordinates;
+    /**
+     * Person's height.
+     *
+     * @restriction Field can't be null.
+     * @restriction Field must be greater than 0.
+     */
+    private Integer height;
+    /**
+     * Person's weight.
+     *
+     * @restriction Field must be greater than 0.
+     */
+    private int weight;
+    /**
+     * Person's eye color.
+     *
+     * @restriction Field can't be null.
+     */
+    private Color hairColor;
+    /**
+     * Person's country
+     */
+    private Country nationality;
+    /**
+     * Person's location.
+     */
+    private Location location;
 
     {
         try {
@@ -56,14 +103,6 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Person's name.
-     *
-     * @restriction Field can't be null.
-     * @restriction Field can't be empty.
-     */
-    private String name;
-
-    /**
      * get Person's name.
      *
      * @return Person's name.
@@ -83,13 +122,6 @@ public class Person implements Comparable<Person> {
         if (name.isEmpty()) throw new IllegalArgumentException("Name can't be empty");
         this.name = name;
     }
-
-    /**
-     * Person's coordinates.
-     *
-     * @restriction Field can't be null.
-     */
-    private Coordinates coordinates;
 
     /**
      * get Person's coordinates.
@@ -112,14 +144,6 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Person's creation date.
-     *
-     * @restriction Field can't be null.
-     * @restriction Field must be generated automatically.
-     */
-    private final LocalDate creationDate = LocalDate.now(ZoneId.systemDefault());
-
-    /**
      * get Person's creation date.
      *
      * @return Person's creation date.
@@ -127,14 +151,6 @@ public class Person implements Comparable<Person> {
     public LocalDate getCreationDate() {
         return creationDate;
     }
-
-    /**
-     * Person's height.
-     *
-     * @restriction Field can't be null.
-     * @restriction Field must be greater than 0.
-     */
-    private Integer height;
 
     /**
      * get Person's height.
@@ -158,13 +174,6 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Person's weight.
-     *
-     * @restriction Field must be greater than 0.
-     */
-    private int weight;
-
-    /**
      * get Person's weight.
      *
      * @return Person's weight.
@@ -183,13 +192,6 @@ public class Person implements Comparable<Person> {
         if (weight <= 0) throw new IllegalArgumentException("Weight must be greater than 0");
         this.weight = weight;
     }
-
-    /**
-     * Person's eye color.
-     *
-     * @restriction Field can't be null.
-     */
-    private Color hairColor;
 
     /**
      * get Person's eye color.
@@ -212,11 +214,6 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Person's country
-     */
-    private Country nationality;
-
-    /**
      * get Person's country
      *
      * @return Person's country
@@ -235,12 +232,8 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Person's location.
-     */
-    private Location location;
-
-    /**
      * get Person's location.
+     *
      * @return Person's location.
      */
     public Location getLocation() {
@@ -249,6 +242,7 @@ public class Person implements Comparable<Person> {
 
     /**
      * set Person's location.
+     *
      * @param location Person's location.
      */
     public void setLocation(Location location) {

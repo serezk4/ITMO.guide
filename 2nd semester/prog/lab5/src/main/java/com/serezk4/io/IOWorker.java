@@ -9,12 +9,14 @@ package com.serezk4.io;
 public interface IOWorker<T> extends AutoCloseable {
     /**
      * Reads data.
+     *
      * @return data
      */
     T read();
 
     /**
      * Reads data with a prompt.
+     *
      * @param prompt prompt
      * @return data
      */
@@ -25,18 +27,22 @@ public interface IOWorker<T> extends AutoCloseable {
 
     /**
      * Writes data.
+     *
      * @param data data
      */
     void write(T data);
 
     /**
      * Inserts data to the worker.
+     *
      * @param data data
      */
-    default void insert(T data) {};
+    default void insert(T data) {
+    }
 
     /**
      * Checks if the worker is ready to read/write data.
+     *
      * @return true if the worker is ready, false otherwise
      */
     boolean ready();

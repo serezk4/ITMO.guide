@@ -16,8 +16,16 @@ import java.util.List;
 import static com.serezk4.collection.util.InputUtil.get;
 
 /**
- * Handler class.
- * Worker for handling input.
+ * Handles user input and routes commands to the appropriate handlers.
+ * <p>
+ * This class is responsible for reading input from the user or script, parsing commands,
+ * routing requests, and printing responses to the console. It serves as the main interface
+ * between user input and command execution in the application.
+ * </p>
+ *
+ * @author serezk4
+ * @version 1.0
+ * @since 1.0
  */
 public class Handler implements Runnable {
     private final ConsoleWorker console;
@@ -26,10 +34,10 @@ public class Handler implements Runnable {
     private final Router router = new Router();
 
     /**
-     * Basic constructor.
+     * Creates a new {@code Handler} instance.
      *
-     * @param console console worker
-     * @param script  script worker
+     * @param console the console worker for user interaction
+     * @param script  the script worker for reading script inputs
      */
     public Handler(ConsoleWorker console, IOWorker<String> script) {
         this.console = console;
@@ -37,7 +45,11 @@ public class Handler implements Runnable {
     }
 
     /**
-     * Run the handler.
+     * Executes the main logic of the handler.
+     * <p>
+     * Loads the collection, welcomes the user, and processes input lines from the console
+     * or script sequentially.
+     * </p>
      */
     @Override
     public void run() {
@@ -50,15 +62,19 @@ public class Handler implements Runnable {
                 handle(line);
                 while (!script.ready()) handle(script.read());
             }
-        } catch (Exception someShit) {
-            console.writef("error: %s%n", someShit.getMessage());
+        } catch (Exception e) {
+            console.writef("error: %s%n", e.getMessage());
         }
     }
 
     /**
-     * Handle the input line.
+     * Processes a single input line.
+     * <p>
+     * Parses the line into a {@link Request}, routes it to the appropriate handler,
+     * and prints the resulting {@link Response}.
+     * </p>
      *
-     * @param line input line
+     * @param line the input line to process
      */
     private void handle(String line) {
         if (line == null) return;
@@ -66,22 +82,30 @@ public class Handler implements Runnable {
     }
 
     /**
-     * Print the response.
+     * Prints a {@link Response} to the console.
+     * <p>
+     * Outputs messages, persons, or scripts provided in the response to the console
+     * or script worker.
+     * </p>
      *
-     * @param response response to print
+     * @param response the response to print
      */
     private void print(Response response) {
         if (response.message() != null && !response.message().isBlank()) console.writeln(response.message());
-        if (response.persons() != null && !response.persons().isEmpty()) response.persons().stream().map(Person::toString).forEach(console::writeln);
+        if (response.persons() != null && !response.persons().isEmpty())
+            response.persons().stream().map(Person::toString).forEach(console::writeln);
         if (response.script() != null && !response.script().isEmpty()) script.insert(response.script());
     }
 
     /**
-     * Parse the input line.
-     *
-     * @param line raw input line
-     * @return line parsed to request
+     * Parses an input line into a {@link Request}.
      * <p>
+     * Splits the input into command, arguments, and collects any required
+     * {@link Person} objects from the input source.
+     * </p>
+     *
+     * @param line the raw input line
+     * @return a {@link Request} object containing parsed data
      * @see Request
      * @see InputUtil
      */

@@ -13,6 +13,7 @@ public class Exit extends Command {
 
     /**
      * Exits the program
+     *
      * @param request request to execute
      * @return response to the request
      */

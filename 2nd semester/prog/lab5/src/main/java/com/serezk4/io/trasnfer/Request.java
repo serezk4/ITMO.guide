@@ -11,4 +11,5 @@ import java.util.List;
  * @param args    Arguments for the command
  * @param persons List of persons for the command
  */
-public record Request(String command, List<String> args, List<Person> persons) {}
+public record Request(String command, List<String> args, List<Person> persons) {
+}

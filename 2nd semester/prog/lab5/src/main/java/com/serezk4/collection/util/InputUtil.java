@@ -13,6 +13,7 @@ import java.util.function.Function;
 public class InputUtil {
     /**
      * Get person from input.
+     *
      * @param io IOWorker
      * @return Person
      * @throws InterruptedException if interrupted
@@ -23,8 +24,10 @@ public class InputUtil {
         while (!input("name", person::setName, Function.identity(), io)) ;
         while (!input("height", person::setHeight, Integer::valueOf, io)) ;
         while (!input("weight", person::setWeight, Integer::valueOf, io)) ;
-        while (!input("hair color %s".formatted(Arrays.toString(Color.values())), person::setHairColor, Color::valueOf, io)) ;
-        while (!input("nationality %s".formatted(Arrays.toString(Country.values())), person::setNationality, Country::valueOf, io)) ;
+        while (!input("hair color %s".formatted(Arrays.toString(Color.values())), person::setHairColor, Color::valueOf, io))
+            ;
+        while (!input("nationality %s".formatted(Arrays.toString(Country.values())), person::setNationality, Country::valueOf, io))
+            ;
 
         Coordinates coordinates = new Coordinates();
         while (!input("cord x", coordinates::setX, Integer::valueOf, io)) ;
@@ -41,15 +44,16 @@ public class InputUtil {
 
     /**
      * Input method.
+     *
      * @param fieldName field name
-     * @param setter setter method reference
-     * @param parser parser method reference
-     * @param io IOWorker
+     * @param setter    setter method reference
+     * @param parser    parser method reference
+     * @param io        IOWorker
+     * @param <K>       type
      * @return true if success
-     * @param <K> type
      * @throws InterruptedException if interrupted
      */
-    private static  <K> boolean input(String fieldName, Consumer<K> setter, Function<String, K> parser, IOWorker<String> io) throws InterruptedException {
+    private static <K> boolean input(String fieldName, Consumer<K> setter, Function<String, K> parser, IOWorker<String> io) throws InterruptedException {
         try {
             String line = io.read(" - " + fieldName);
             if (line == null || line.equals("return")) throw new InterruptedException("called return");

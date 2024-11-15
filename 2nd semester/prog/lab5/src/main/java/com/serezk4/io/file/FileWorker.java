@@ -9,6 +9,7 @@ import com.serezk4.io.IOWorker;
 public interface FileWorker extends IOWorker<String> {
     /**
      * Writes data to the file.
+     *
      * @return data in String format
      */
     default String readAll() {

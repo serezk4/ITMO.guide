@@ -17,6 +17,7 @@ public class PrintFieldDescendingHairColor extends Command {
 
     /**
      * Prints field hair color in descending order
+     *
      * @param request request to execute
      * @return response with field hair color in descending order
      */

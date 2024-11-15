@@ -12,7 +12,7 @@ import com.serezk4.io.deque.DequeWorker;
  */
 public class Main {
     public static void main(String[] args) {
-        try(ConsoleWorker console = new BufferedConsoleWorker(); IOWorker<String> script = new DequeWorker()) {
+        try (ConsoleWorker console = new BufferedConsoleWorker(); IOWorker<String> script = new DequeWorker()) {
             new Handler(console, script).run();
         } catch (Exception e) {
             System.err.printf("shit happened: %s%n", e.getMessage());

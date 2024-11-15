@@ -4,4 +4,5 @@ import com.serezk4.collection.model.Person;
 
 import java.util.List;
 
-public record Root(List<Person> collection) {}
+public record Root(List<Person> collection) {
+}

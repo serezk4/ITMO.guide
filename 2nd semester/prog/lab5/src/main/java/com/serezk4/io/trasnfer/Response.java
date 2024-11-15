@@ -2,7 +2,9 @@ package com.serezk4.io.trasnfer;
 
 import com.serezk4.collection.model.Person;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Response class.
@@ -44,6 +46,7 @@ public record Response(String message, List<Person> persons, String script) {
 
     /**
      * Constructor for empty response.
+     *
      * @return empty response
      */
     public static Response empty() {

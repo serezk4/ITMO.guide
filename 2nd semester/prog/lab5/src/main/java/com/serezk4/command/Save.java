@@ -11,7 +11,7 @@ import com.serezk4.io.trasnfer.Response;
  */
 public class Save extends Command {
     protected Save() {
-        super("save","save collection to file");
+        super("save", "save collection to file");
     }
 
     /**

@@ -44,6 +44,7 @@ public class DequeWorker implements IOWorker<String> {
 
     /**
      * Inserts data to the deque.
+     *
      * @param data data
      */
     @Override

@@ -9,6 +9,7 @@ import com.serezk4.io.IOWorker;
 public interface ConsoleWorker extends IOWorker<String> {
     /**
      * Writes data to the console.
+     *
      * @param data data
      */
     default void writeln(String data) {
@@ -17,6 +18,7 @@ public interface ConsoleWorker extends IOWorker<String> {
 
     /**
      * Writes data to the console.
+     *
      * @param lines data
      */
     default void writeln(String... lines) {
@@ -30,8 +32,9 @@ public interface ConsoleWorker extends IOWorker<String> {
 
     /**
      * Writes data to the console.
+     *
      * @param format format string
-     * @param args arguments
+     * @param args   arguments
      */
     default void writef(String format, Object... args) {
         write(String.format(format, args));

@@ -20,6 +20,7 @@ public class IdGenerator {
 
     /**
      * Creates a new instance of IdGenerator with the specified file path.
+     *
      * @throws IOException if an I/O error occurs
      */
     private IdGenerator() throws IOException {
@@ -29,6 +30,7 @@ public class IdGenerator {
 
     /**
      * Returns the instance of the IdGenerator class.
+     *
      * @return the instance of the IdGenerator class
      * @throws IOException if an I/O error occurs
      */
@@ -51,6 +53,7 @@ public class IdGenerator {
 
     /**
      * Generates a new ID and saves it to the file.
+     *
      * @return the newly generated ID
      * @throws IOException if an I/O error occurs
      */
@@ -62,6 +65,7 @@ public class IdGenerator {
 
     /**
      * Closes the file worker.
+     *
      * @throws Exception if an I/O error occurs
      */
     public void close() throws Exception {

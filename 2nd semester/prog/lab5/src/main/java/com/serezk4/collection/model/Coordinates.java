@@ -9,13 +9,22 @@ public class Coordinates {
     /**
      * X coordinate.
      * <p>
+     *
      * @restriction Value must be > -271
      * @restriction Field can't be null
      */
     private Integer x;
+    /**
+     * Y coordinate.
+     * <p>
+     *
+     * @restriction Field can't be null
+     */
+    private Integer y;
 
     /**
      * get X coordinate.
+     *
      * @return X coordinate.
      */
     public Integer getX() {
@@ -24,6 +33,7 @@ public class Coordinates {
 
     /**
      * set X coordinate.
+     *
      * @param x X coordinate.
      */
     public void setX(Integer x) {
@@ -33,14 +43,8 @@ public class Coordinates {
     }
 
     /**
-     * Y coordinate.
-     * <p>
-     * @restriction Field can't be null
-     */
-    private Integer y;
-
-    /**
      * get Y coordinate.
+     *
      * @return Y coordinate.
      */
     public Integer getY() {
@@ -49,6 +53,7 @@ public class Coordinates {
 
     /**
      * set Y coordinate.
+     *
      * @param y Y coordinate.
      */
     public void setY(Integer y) {

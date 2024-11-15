@@ -12,6 +12,18 @@ public class Location implements Comparable<Location> {
      * @restriction Filed can't be null.
      */
     private Float x;
+    /**
+     * Y coordinate.
+     *
+     * @restriction Field can't be null.
+     */
+    private Double y;
+    /**
+     * Name.
+     *
+     * @restriction Field may be null.
+     */
+    private String name;
 
     /**
      * get X coordinate.
@@ -33,13 +45,6 @@ public class Location implements Comparable<Location> {
     }
 
     /**
-     * Y coordinate.
-     *
-     * @restriction Field can't be null.
-     */
-    private Double y;
-
-    /**
      * get Y coordinate.
      *
      * @return Y coordinate.
@@ -57,13 +62,6 @@ public class Location implements Comparable<Location> {
         if (y == null) throw new IllegalArgumentException("Y can't be null");
         this.y = y;
     }
-
-    /**
-     * Name.
-     *
-     * @restriction Field may be null.
-     */
-    private String name;
 
     /**
      * get name.

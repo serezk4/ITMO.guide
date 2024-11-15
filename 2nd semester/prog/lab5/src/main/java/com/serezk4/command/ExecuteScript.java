@@ -14,18 +14,19 @@ import java.util.Collections;
  */
 public class ExecuteScript extends Command {
     protected ExecuteScript() {
-        super("exec", new String[]{"filepath"},"execute script");
+        super("exec", new String[]{"filepath"}, "execute script");
     }
 
     /**
      * Executes script from file
+     *
      * @param request request to execute
      * @return response with script
-     * @see Response#script
-     * <p>
      * @check if file exists
      * @check if file is a file
      * @check if file can be read
+     * @see Response#script
+     * <p>
      */
     @Override
     public Response execute(Request request) {
@@ -36,7 +37,7 @@ public class ExecuteScript extends Command {
         if (!path.toFile().isFile()) return new Response("Path is not a file.");
         if (!path.toFile().canRead()) return new Response("Not enough rights to read file.");
 
-        try(FileWorker file = new BufferedFileWorker(path)) {
+        try (FileWorker file = new BufferedFileWorker(path)) {
             StringBuilder script = new StringBuilder();
             while (file.ready()) script.append(file.read()).append(System.lineSeparator());
             return new Response("Script loaded from file %s".formatted(path.toString()), Collections.emptyList(), script.toString());

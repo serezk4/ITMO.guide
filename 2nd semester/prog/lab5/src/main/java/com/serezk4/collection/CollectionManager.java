@@ -26,6 +26,7 @@ public class CollectionManager {
 
     /**
      * Get instance of CollectionManager.
+     *
      * @return Instance of CollectionManager.
      */
     public static CollectionManager getInstance() {
@@ -36,7 +37,7 @@ public class CollectionManager {
      * Load persons from file.
      */
     public void load() {
-        try(Formatter<Person> formatter = new JsonFormatter(FileConfiguration.DATA_FILE_PATH)) {
+        try (Formatter<Person> formatter = new JsonFormatter(FileConfiguration.DATA_FILE_PATH)) {
             list.clear();
             list.addAll(formatter.read());
             System.out.printf("loaded %d elements%n", list.size());
@@ -49,7 +50,7 @@ public class CollectionManager {
      * Save persons to file.
      */
     public void save() {
-        try(Formatter<Person> formatter = new JsonFormatter(FileConfiguration.DATA_FILE_PATH)) {
+        try (Formatter<Person> formatter = new JsonFormatter(FileConfiguration.DATA_FILE_PATH)) {
             formatter.write(list);
         } catch (Exception e) {
             System.err.println(e.getMessage());
