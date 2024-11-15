@@ -1,4 +1,4 @@
-package com.serezk4.database.configuration;
+package com.serezk4.configuration;
 
 /**
  * Provides database configuration details for connecting to a PostgreSQL database.
@@ -30,7 +30,8 @@ package com.serezk4.database.configuration;
  * @version 1.0
  * @since 1.0
  */
-public class DatabaseConfiguration {
+public final class DatabaseConfiguration {
+
     /**
      * The JDBC URL for connecting to the PostgreSQL database.
      *
@@ -53,18 +54,19 @@ public class DatabaseConfiguration {
             System.getenv("DB_PORT"),
             System.getenv("DB_NAME")
     );
-
     /**
      * The username for connecting to the PostgreSQL database.
      *
      * <p>Retrieved from the {@code DB_USER} environment variable.</p>
      */
     public static final String POSTGRES_USER = System.getenv("DB_USER");
-
     /**
      * The password for connecting to the PostgreSQL database.
      *
      * <p>Retrieved from the {@code DB_PASSWORD} environment variable.</p>
      */
     public static final String POSTGRES_PASSWORD = System.getenv("DB_PASSWORD");
+
+    private DatabaseConfiguration() {
+    }
 }

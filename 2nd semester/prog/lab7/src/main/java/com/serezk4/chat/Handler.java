@@ -1,8 +1,8 @@
 package com.serezk4.chat;
 
 import com.serezk4.collection.CollectionManager;
-import com.serezk4.database.model.Person;
 import com.serezk4.collection.util.InputUtil;
+import com.serezk4.database.model.Person;
 import com.serezk4.io.IOWorker;
 import com.serezk4.io.console.ConsoleWorker;
 import com.serezk4.io.trasnfer.Request;

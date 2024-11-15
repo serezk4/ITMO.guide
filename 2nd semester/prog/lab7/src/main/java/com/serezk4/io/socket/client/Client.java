@@ -72,21 +72,18 @@ public final class Client implements Runnable {
      * Configuration for the client, containing server host, port, and other properties.
      */
     private final ClientConfiguration configuration;
-
-    /**
-     * Socket channel for establishing and managing the connection to the server.
-     */
-    private SocketChannel clientChannel;
-
     /**
      * Console worker for handling user input and output.
      */
     private final ConsoleWorker console;
-
     /**
      * I/O worker for executing command scripts.
      */
     private final IOWorker<String> script;
+    /**
+     * Socket channel for establishing and managing the connection to the server.
+     */
+    private SocketChannel clientChannel;
 
     /**
      * Constructs a {@code Client} instance with the specified configuration and I/O workers.

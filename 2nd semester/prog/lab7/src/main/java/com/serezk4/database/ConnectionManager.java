@@ -1,6 +1,6 @@
 package com.serezk4.database;
 
-import com.serezk4.database.configuration.DatabaseConfiguration;
+import com.serezk4.configuration.DatabaseConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,24 +32,22 @@ import java.sql.SQLException;
  * ResultSet rs = stmt.executeQuery();
  * </pre>
  *
- * @see DatabaseConfiguration
  * @author serezk4
+ * @see DatabaseConfiguration
  */
-public class ConnectionManager {
+public final class ConnectionManager {
     /**
      * Logger for recording database connection activities and errors.
      */
     private static final Logger log = LoggerFactory.getLogger(ConnectionManager.class.getName());
-
-    /**
-     * The active database connection managed by this class.
-     */
-    private Connection connection;
-
     /**
      * The singleton instance of the {@link ConnectionManager}.
      */
     private static ConnectionManager instance;
+    /**
+     * The active database connection managed by this class.
+     */
+    private Connection connection;
 
     /**
      * Initializes the database connection.

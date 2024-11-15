@@ -85,7 +85,8 @@ public final class Main {
                 case "client":
                     new Client(clientConfiguration, console, script).run();
                     break;
-                default: console.writeln("Error! Unknown mode: ".concat(mode));
+                default:
+                    console.writeln("Error! Unknown mode: ".concat(mode));
             }
         } catch (Exception e) {
             System.err.printf("An error occurred: %s%n", e.getMessage());

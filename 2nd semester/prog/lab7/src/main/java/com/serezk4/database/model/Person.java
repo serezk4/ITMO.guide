@@ -4,8 +4,6 @@ import com.serezk4.collection.id.IdGenerator;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,7 +15,75 @@ import java.util.Objects;
  * @see Country
  * @see Location
  */
-public class Person implements Comparable<Person>, Serializable {
+public final class Person implements Comparable<Person>, Serializable {
+
+    /**
+     * Person's creation date.
+     *
+     * @restriction Field can't be null.
+     * @restriction Field must be generated automatically.
+     */
+    private Date creationDate = new Date();
+    /**
+     * Person's id.
+     *
+     * @restriction Field must be greater than 0.
+     * @restriction Field must be unique.
+     * @restriction Field must be generated automatically.
+     * @restriction Field can't be null.
+     */
+    private int id;
+    private long ownerId;
+    private transient User user;
+    /**
+     * Person's name.
+     *
+     * @restriction Field can't be null.
+     * @restriction Field can't be empty.
+     */
+    private String name;
+    /**
+     * Person's coordinates.
+     *
+     * @restriction Field can't be null.
+     */
+    private Coordinates coordinates;
+    /**
+     * Person's height.
+     *
+     * @restriction Field can't be null.
+     * @restriction Field must be greater than 0.
+     */
+    private Integer height;
+    /**
+     * Person's weight.
+     *
+     * @restriction Field must be greater than 0.
+     */
+    private int weight;
+    /**
+     * Person's eye color.
+     *
+     * @restriction Field can't be null.
+     */
+    private Color hairColor;
+    /**
+     * Person's country
+     */
+    private Country nationality;
+    /**
+     * Person's location.
+     */
+    private Location location;
+
+    {
+        try {
+            id = IdGenerator.getInstance().generateId();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            id = -1;
+        }
+    }
 
     public Person() {
     }
@@ -35,27 +101,6 @@ public class Person implements Comparable<Person>, Serializable {
         this.location = location;
     }
 
-    /**
-     * Person's creation date.
-     *
-     * @restriction Field can't be null.
-     * @restriction Field must be generated automatically.
-     */
-    private Date creationDate = new Date();
-
-    /**
-     * Person's id.
-     *
-     * @restriction Field must be greater than 0.
-     * @restriction Field must be unique.
-     * @restriction Field must be generated automatically.
-     * @restriction Field can't be null.
-     */
-    private int id;
-
-    private long ownerId;
-    private transient User user;
-
     public long getOwnerId() {
         return ownerId;
     }
@@ -70,62 +115,6 @@ public class Person implements Comparable<Person>, Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    /**
-     * Person's name.
-     *
-     * @restriction Field can't be null.
-     * @restriction Field can't be empty.
-     */
-    private String name;
-
-    /**
-     * Person's coordinates.
-     *
-     * @restriction Field can't be null.
-     */
-    private Coordinates coordinates;
-
-    /**
-     * Person's height.
-     *
-     * @restriction Field can't be null.
-     * @restriction Field must be greater than 0.
-     */
-    private Integer height;
-
-    /**
-     * Person's weight.
-     *
-     * @restriction Field must be greater than 0.
-     */
-    private int weight;
-
-    /**
-     * Person's eye color.
-     *
-     * @restriction Field can't be null.
-     */
-    private Color hairColor;
-
-    /**
-     * Person's country
-     */
-    private Country nationality;
-
-    /**
-     * Person's location.
-     */
-    private Location location;
-
-    {
-        try {
-            id = IdGenerator.getInstance().generateId();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            id = -1;
-        }
     }
 
     /**

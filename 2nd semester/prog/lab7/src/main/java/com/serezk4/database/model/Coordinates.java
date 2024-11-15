@@ -6,15 +6,7 @@ import java.util.Objects;
 /**
  * Coordinates class.
  */
-public class Coordinates implements Serializable {
-
-    public Coordinates() {
-    }
-
-    public Coordinates(Integer x, Integer y) {
-        this.x = x;
-        this.y = y;
-    }
+public final class Coordinates implements Serializable {
 
     /**
      * X coordinate.
@@ -24,7 +16,6 @@ public class Coordinates implements Serializable {
      * @restriction Field can't be null
      */
     private Integer x;
-
     /**
      * Y coordinate.
      * <p>
@@ -32,6 +23,14 @@ public class Coordinates implements Serializable {
      * @restriction Field can't be null
      */
     private Integer y;
+
+    public Coordinates() {
+    }
+
+    public Coordinates(Integer x, Integer y) {
+        this.x = x;
+        this.y = y;
+    }
 
     /**
      * get X coordinate.

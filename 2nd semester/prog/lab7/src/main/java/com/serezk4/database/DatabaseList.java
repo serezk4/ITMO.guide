@@ -33,11 +33,11 @@ import java.util.ArrayList;
  * <p>This class is not thread-safe. External synchronization is required if used in a
  * concurrent environment.</p>
  *
+ * @author serezk4
  * @see Person
  * @see PersonService
- * @author serezk4
  */
-public class DatabaseList extends ArrayList<Person> {
+public final class DatabaseList extends ArrayList<Person> {
     /**
      * Logger for recording actions performed on the {@code DatabaseList}.
      */
@@ -110,9 +110,8 @@ public class DatabaseList extends ArrayList<Person> {
     @Override
     public boolean remove(Object o) {
         if (o == null) return false;
-        if (!(o instanceof Person)) return false;
+        if (!(o instanceof Person person)) return false;
 
-        Person person = (Person) o;
         PersonService.getInstance().removeById(person.getId());
         log.info("Person removed: {}", person);
         return super.remove(o);

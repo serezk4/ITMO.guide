@@ -6,16 +6,7 @@ import java.util.Objects;
 /**
  * Location class.
  */
-public class Location implements Comparable<Location>, Serializable {
-
-    public Location() {
-    }
-
-    public Location(Float x, Double y, String name) {
-        this.x = x;
-        this.y = y;
-        this.name = name;
-    }
+public final class Location implements Comparable<Location>, Serializable {
 
     /**
      * X coordinate.
@@ -35,6 +26,13 @@ public class Location implements Comparable<Location>, Serializable {
      * @restriction Field may be null.
      */
     private String name;
+    public Location() {
+    }
+    public Location(Float x, Double y, String name) {
+        this.x = x;
+        this.y = y;
+        this.name = name;
+    }
 
     /**
      * get X coordinate.

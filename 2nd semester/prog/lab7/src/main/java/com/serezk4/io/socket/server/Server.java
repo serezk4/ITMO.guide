@@ -78,32 +78,18 @@ public final class Server implements AutoCloseable, Runnable {
      * Console worker for processing administrative commands entered by the user.
      */
     private final ConsoleWorker console;
-
-    /**
-     * Server socket channel used for accepting incoming client connections.
-     */
-    private ServerSocketChannel serverSocketChannel;
-
-    /**
-     * Selector for monitoring I/O events such as connection acceptance, reading, and writing.
-     */
-    private Selector selector;
-
     /**
      * Thread pool for managing tasks related to reading data from clients.
      */
     private final ExecutorService readPool;
-
     /**
      * Thread pool for managing tasks related to writing data to clients.
      */
     private final ExecutorService writePool;
-
     /**
      * Map storing client-specific data for each connected client, identified by their socket channel.
      */
     private final Map<SocketChannel, ClientData> clientDataMap = new ConcurrentHashMap<>();
-
     /**
      * Atomic flag to indicate whether the server is currently running.
      *
@@ -111,6 +97,14 @@ public final class Server implements AutoCloseable, Runnable {
      * when starting or stopping the server.</p>
      */
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
+    /**
+     * Server socket channel used for accepting incoming client connections.
+     */
+    private ServerSocketChannel serverSocketChannel;
+    /**
+     * Selector for monitoring I/O events such as connection acceptance, reading, and writing.
+     */
+    private Selector selector;
 
     /**
      * Constructs a new {@code Server} instance with the specified configuration and console worker.

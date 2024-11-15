@@ -52,7 +52,7 @@ import static com.serezk4.security.PasswordUtil.hashPassword;
  * @see UserQuery
  * @since 1.0
  */
-public class UserService implements UserRepository {
+public final class UserService implements UserRepository {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private static UserService instance;
 

@@ -1,12 +1,11 @@
 package com.serezk4.collection;
 
+import com.serezk4.configuration.FileConfiguration;
 import com.serezk4.database.DatabaseList;
 import com.serezk4.database.model.Person;
-import com.serezk4.configuration.FileConfiguration;
 import com.serezk4.io.parser.Formatter;
 import com.serezk4.io.parser.json.JsonFormatter;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**

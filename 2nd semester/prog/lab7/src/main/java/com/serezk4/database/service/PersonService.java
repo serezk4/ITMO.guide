@@ -46,7 +46,7 @@ import java.util.*;
  * @see #getInstance()
  * @since 1.0
  */
-public class PersonService implements PersonRepository {
+public final class PersonService implements PersonRepository {
     private static final Logger log = LoggerFactory.getLogger(PersonService.class);
     private static PersonService instance;
 

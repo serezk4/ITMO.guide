@@ -24,7 +24,7 @@ import com.serezk4.database.model.User;
  * @version 1.0
  * @since 1.0
  */
-public class UserMapper implements Mapper<User, UserDto> {
+public final class UserMapper implements Mapper<User, UserDto> {
 
     /**
      * Converts a {@link User} entity into a {@link UserDto}.
