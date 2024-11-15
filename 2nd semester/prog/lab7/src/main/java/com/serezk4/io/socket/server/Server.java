@@ -2,6 +2,8 @@ package com.serezk4.io.socket.server;
 
 import com.serezk4.chat.Router;
 import com.serezk4.collection.CollectionManager;
+import com.serezk4.database.model.User;
+import com.serezk4.database.service.UserService;
 import com.serezk4.io.console.ConsoleWorker;
 import com.serezk4.io.trasnfer.Request;
 import com.serezk4.io.trasnfer.Response;
@@ -9,6 +11,7 @@ import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.security.auth.login.CredentialException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -16,10 +19,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -489,14 +489,71 @@ public final class Server implements AutoCloseable, Runnable {
             Request request = SerializationUtils.deserialize(data);
             log.info("Processing request from client {}: {}", client.getRemoteAddress(), request);
 
+            request.setUser(getUser(request));
+
             Response response = Router.getInstance().route(request);
             clientDataMap.get(client).queueResponse(response);
 
             log.info("Response queued for client {}: {}", client.getRemoteAddress(), response);
             key.interestOps(SelectionKey.OP_WRITE);
+        } catch (CredentialException credentialException) {
+            log.info("Client tried to login and failed: {}", credentialException.getMessage());
+            final Response failResponse = new Response(credentialException.getMessage());
+            clientDataMap.get(client).queueResponse(failResponse);
+            log.info("Response queued for client: {}", failResponse);
+            key.interestOps(SelectionKey.OP_WRITE);
         } catch (Exception e) {
             log.error("Failed to process client request", e);
         }
+    }
+
+    /**
+     * Retrieves a {@link User} from the system based on the provided {@link Request}.
+     *
+     * <p>This method performs several validation and authentication steps:</p>
+     * <ul>
+     *     <li>Checks if the {@link Request} contains valid user credentials.</li>
+     *     <li>If the user does not exist, automatically registers the user by saving their username and password.</li>
+     *     <li>Verifies that the provided password matches the stored password.</li>
+     * </ul>
+     *
+     * <p>If any validation or authentication step fails, a {@link CredentialException} is thrown with a descriptive message.</p>
+     *
+     * <p>Failure Scenarios:</p>
+     * <ul>
+     *     <li>If the {@code userDto} in the {@link Request} is {@code null}, the method throws a {@code CredentialException} with a message indicating the absence of authorization.</li>
+     *     <li>If the username or password in the {@code userDto} is blank, the method throws a {@code CredentialException} with a specific message.</li>
+     *     <li>If the user is not found after attempting to register, or if the password validation fails, a {@code CredentialException} is thrown.</li>
+     * </ul>
+     *
+     * @param request the {@link Request} containing the user's credentials.
+     * @return the authenticated {@link User}.
+     * @throws CredentialException if any validation or authentication step fails.
+     * @see User
+     * @see Request
+     * @see UserService
+     */
+    private User getUser(Request request) throws CredentialException {
+        if (request.userDto() == null) throw new CredentialException("You are not logged in. Authorization failed.");
+        if (request.userDto().username().isBlank())
+            throw new CredentialException("Username cannot be empty. Authorization failed.");
+        if (request.userDto().password().isBlank())
+            throw new CredentialException("Password cannot be empty. Authorization failed.");
+        Optional<User> optionalUser = UserService.getInstance().findByUsername(request.userDto().username());
+
+        if (optionalUser.isEmpty()) {
+            UserService.getInstance().save(request.userDto().username(), request.userDto().password());
+            optionalUser = UserService.getInstance().findByUsername(request.userDto().username());
+        }
+
+        if (optionalUser.isEmpty())
+            throw new CredentialException("Authorization failed. Internal server error. Authorization failed.");
+
+        User user = optionalUser.get();
+        if (!UserService.getInstance().checkPassword(user, request.userDto().password()))
+            throw new CredentialException("Incorrect password. Authorization failed.");
+
+        return user;
     }
 
     /**

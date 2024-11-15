@@ -41,7 +41,10 @@ public final class Clear extends Command {
         if (CollectionManager.getInstance().list().isEmpty()) {
             return new Response("Sorry! Collection is empty.");
         }
-        CollectionManager.getInstance().list().clear();
-        return new Response("Collection cleared.");
+        CollectionManager.getInstance().list().stream()
+                .filter(el -> el.getOwnerId() == request.user().getId())
+                .forEach(CollectionManager.getInstance().list()::remove);
+
+        return new Response("Collection for you cleared.");
     }
 }

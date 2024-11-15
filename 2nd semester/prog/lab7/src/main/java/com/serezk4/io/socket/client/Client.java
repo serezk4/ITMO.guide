@@ -1,6 +1,7 @@
 package com.serezk4.io.socket.client;
 
 import com.serezk4.chat.Router;
+import com.serezk4.database.dto.UserDto;
 import com.serezk4.database.model.Person;
 import com.serezk4.io.IOWorker;
 import com.serezk4.io.console.ConsoleWorker;
@@ -85,6 +86,9 @@ public final class Client implements Runnable {
      */
     private SocketChannel clientChannel;
 
+    private UserDto userDto = null;
+    private int loginAttempts = 0;
+
     /**
      * Constructs a {@code Client} instance with the specified configuration and I/O workers.
      *
@@ -103,6 +107,31 @@ public final class Client implements Runnable {
         this.configuration = Objects.requireNonNull(configuration, "Configuration cannot be null");
         this.console = Objects.requireNonNull(console, "ConsoleWorker cannot be null");
         this.script = Objects.requireNonNull(script, "Script IOWorker cannot be null");
+    }
+
+    private void getUser() {
+        if (loginAttempts > 5) {
+            console.writeln("Attempts exceeded.");
+            System.exit(1);
+        }
+
+        console.writeln("Enter login and password to authorize. Attempts left: " + (5 - loginAttempts));
+        final String login = console.read("Enter login: ");
+        final String password = console.read("Enter password: ");
+
+        userDto = new UserDto(login, password);
+        try {
+            sendRequest(new Request("help", Collections.emptyList(), Collections.emptyList(), userDto));
+            Response response = receiveResponse();
+            if (response.message().contains("Authorization failed.")) {
+                loginAttempts++;
+                console.writeln(response.message());
+                getUser();
+            }
+            console.writeln("You logged in successfully!");
+        } catch (IOException e) {
+            console.writeln("Failed to send request: " + e);
+        }
     }
 
     /**
@@ -181,6 +210,7 @@ public final class Client implements Runnable {
     public void run() {
         try {
             init();
+            getUser();
             console.writeln("Welcome to the client application!");
 
             String line;
@@ -382,7 +412,7 @@ public final class Client implements Runnable {
             }
         }
 
-        return new Request(command, arguments, persons);
+        return new Request(command, arguments, persons, userDto);
     }
 
     /**

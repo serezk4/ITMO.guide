@@ -55,7 +55,10 @@ public final class RemoveGreater extends Command {
         if (CollectionManager.getInstance().list().isEmpty()) {
             return new Response("Collection is empty.");
         }
-        CollectionManager.getInstance().list().removeIf(person -> person.compareTo(request.persons().get(0)) > 0);
+        CollectionManager.getInstance().list().removeIf(person ->
+                person.compareTo(request.persons().get(0)) > 0
+                        && person.getOwnerId() == request.user().getId()
+        );
         return new Response("Persons that are greater than the given element successfully removed.");
     }
 }

@@ -43,6 +43,8 @@ public final class Add extends Command {
         if (request.persons() == null || request.persons().isEmpty()) {
             return new Response("No persons to add.");
         }
+
+        request.persons().get(0).setOwnerId(request.user().getId());
         CollectionManager.getInstance().list().add(request.persons().get(0));
         return new Response("Person added.");
     }

@@ -128,6 +128,7 @@ public final class Handler implements Runnable {
             }
         }
 
-        return new Request(command, arguments, persons);
+        throw new UnsupportedOperationException("deprecated, use client");
+//        return new Request(command, arguments, persons, null);
     }
 }

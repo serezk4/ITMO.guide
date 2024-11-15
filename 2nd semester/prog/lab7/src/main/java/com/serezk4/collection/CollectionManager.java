@@ -25,7 +25,7 @@ import java.util.List;
 public class CollectionManager {
     private static CollectionManager instance;
 
-    private final List<Person> list = new DatabaseList();
+    private final DatabaseList list = new DatabaseList();
 
     /**
      * Private constructor to enforce singleton pattern.
@@ -91,7 +91,7 @@ public class CollectionManager {
      *
      * @return a {@link List} of {@link Person} objects
      */
-    public List<Person> list() {
+    public DatabaseList list() {
         return list;
     }
 }

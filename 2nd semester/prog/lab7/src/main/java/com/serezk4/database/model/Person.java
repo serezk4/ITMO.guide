@@ -323,6 +323,7 @@ public final class Person implements Comparable<Person>, Serializable {
     public String toString() {
         return "Person {" +
                 "\n  id=" + id +
+                "\n ownerId=" + ownerId +
                 ",\n  name='" + name + '\'' +
                 ",\n  coordinates=" + coordinates +
                 ",\n  creationDate=" + creationDate +

@@ -43,7 +43,10 @@ public final class RemoveFirst extends Command {
         if (CollectionManager.getInstance().list().isEmpty()) {
             return new Response("Collection is empty.");
         }
-        CollectionManager.getInstance().list().remove(0);
+        CollectionManager.getInstance().list().stream()
+                .filter(el -> el.getOwnerId()==request.user().getId())
+                .findFirst().map(CollectionManager.getInstance().list()::remove);
+
         return new Response("First element removed.");
     }
 }

@@ -53,7 +53,11 @@ public final class RemoveById extends Command {
         if (CollectionManager.getInstance().list().stream().noneMatch(person -> person.getId() == targetId)) {
             return new Response("Person with id %d not found.".formatted(targetId));
         }
-        CollectionManager.getInstance().list().removeIf(person -> person.getId() == targetId);
+
+        CollectionManager.getInstance().list().removeIf(person ->
+                person.getId() == targetId
+                && person.getOwnerId() == request.user().getId()
+        );
 
         return new Response("Person removed. Removed element:");
     }

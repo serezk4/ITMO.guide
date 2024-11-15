@@ -29,13 +29,13 @@ import java.util.Optional;
 public final class Main {
 
     private static final ServerConfiguration serverConfiguration = new ServerConfiguration(
-            Optional.ofNullable(System.getenv("port6")).map(Integer::parseInt).orElse(8080),
+            Optional.ofNullable(System.getenv("server_port")).map(Integer::parseInt).orElse(8080),
             8192
     );
 
     private static final ClientConfiguration clientConfiguration = new ClientConfiguration(
             "localhost",
-            Optional.ofNullable(System.getenv("port6")).map(Integer::parseInt).orElse(8080),
+            Optional.ofNullable(System.getenv("server_port")).map(Integer::parseInt).orElse(8080),
             8192);
 
     /**
