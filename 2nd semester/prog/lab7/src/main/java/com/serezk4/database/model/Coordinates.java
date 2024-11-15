@@ -1,4 +1,4 @@
-package com.serezk4.collection.model;
+package com.serezk4.database.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -7,6 +7,14 @@ import java.util.Objects;
  * Coordinates class.
  */
 public class Coordinates implements Serializable {
+
+    public Coordinates() {
+    }
+
+    public Coordinates(Integer x, Integer y) {
+        this.x = x;
+        this.y = y;
+    }
 
     /**
      * X coordinate.

@@ -1,6 +1,7 @@
 package com.serezk4.collection;
 
-import com.serezk4.collection.model.Person;
+import com.serezk4.database.DatabaseList;
+import com.serezk4.database.model.Person;
 import com.serezk4.configuration.FileConfiguration;
 import com.serezk4.io.parser.Formatter;
 import com.serezk4.io.parser.json.JsonFormatter;
@@ -25,7 +26,7 @@ import java.util.List;
 public class CollectionManager {
     private static CollectionManager instance;
 
-    private final List<Person> list = new LinkedList<>();
+    private final List<Person> list = new DatabaseList();
 
     /**
      * Private constructor to enforce singleton pattern.

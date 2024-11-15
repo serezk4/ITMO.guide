@@ -1,6 +1,6 @@
 package com.serezk4.io.trasnfer;
 
-import com.serezk4.collection.model.Person;
+import com.serezk4.database.model.Person;
 
 import java.io.Serializable;
 import java.util.Arrays;

@@ -7,4 +7,4 @@
  *
  * @since 1.0
  */
-package com.serezk4.collection.model;
+package com.serezk4.database.model;

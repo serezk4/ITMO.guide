@@ -7,7 +7,7 @@ import com.serezk4.io.trasnfer.Response;
 /**
  * Command to add an element to the collection.
  * <p>
- * The {@code Add} command is used to add a single {@link com.serezk4.collection.model.Person}
+ * The {@code Add} command is used to add a single {@link com.serezk4.database.model.Person}
  * to the collection managed by {@link CollectionManager}.
  * </p>
  *
@@ -19,7 +19,7 @@ public final class Add extends Command {
     /**
      * Constructs a new {@code Add} command.
      * <p>
-     * The command is named "add" and expects exactly one {@link com.serezk4.collection.model.Person}
+     * The command is named "add" and expects exactly one {@link com.serezk4.database.model.Person}
      * to be provided in the {@link Request}.
      * </p>
      */
@@ -35,7 +35,7 @@ public final class Add extends Command {
      * collection, and a success response is returned.
      * </p>
      *
-     * @param request the request containing the {@link com.serezk4.collection.model.Person} to add
+     * @param request the request containing the {@link com.serezk4.database.model.Person} to add
      * @return a {@link Response} indicating the result of the operation
      */
     @Override

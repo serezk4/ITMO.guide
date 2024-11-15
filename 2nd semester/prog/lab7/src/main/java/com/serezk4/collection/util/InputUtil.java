@@ -1,6 +1,6 @@
 package com.serezk4.collection.util;
 
-import com.serezk4.collection.model.*;
+import com.serezk4.database.model.*;
 import com.serezk4.io.IOWorker;
 
 import java.util.Arrays;

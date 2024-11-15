@@ -4,7 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.serezk4.collection.model.Person;
+import com.serezk4.database.model.Person;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;

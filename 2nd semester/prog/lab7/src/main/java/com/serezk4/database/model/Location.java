@@ -1,4 +1,4 @@
-package com.serezk4.collection.model;
+package com.serezk4.database.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -7,6 +7,16 @@ import java.util.Objects;
  * Location class.
  */
 public class Location implements Comparable<Location>, Serializable {
+
+    public Location() {
+    }
+
+    public Location(Float x, Double y, String name) {
+        this.x = x;
+        this.y = y;
+        this.name = name;
+    }
+
     /**
      * X coordinate.
      *

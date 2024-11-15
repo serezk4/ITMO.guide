@@ -2,7 +2,7 @@ package com.serezk4.io.parser.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.serezk4.collection.model.Person;
+import com.serezk4.database.model.Person;
 import com.serezk4.io.file.BufferedFileWorker;
 import com.serezk4.io.file.FileWorker;
 import com.serezk4.io.parser.Formatter;

@@ -1,7 +1,7 @@
 package com.serezk4.io.socket.client;
 
 import com.serezk4.chat.Router;
-import com.serezk4.collection.model.Person;
+import com.serezk4.database.model.Person;
 import com.serezk4.io.IOWorker;
 import com.serezk4.io.console.ConsoleWorker;
 import com.serezk4.io.trasnfer.Request;

@@ -1,7 +1,7 @@
 package com.serezk4.command;
 
 import com.serezk4.collection.CollectionManager;
-import com.serezk4.collection.model.Person;
+import com.serezk4.database.model.Person;
 import com.serezk4.io.trasnfer.Request;
 import com.serezk4.io.trasnfer.Response;
 

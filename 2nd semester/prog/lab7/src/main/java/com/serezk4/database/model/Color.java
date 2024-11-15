@@ -1,4 +1,4 @@
-package com.serezk4.collection.model;
+package com.serezk4.database.model;
 
 /**
  * Color enumeration.

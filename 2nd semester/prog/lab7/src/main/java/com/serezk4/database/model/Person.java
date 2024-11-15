@@ -1,4 +1,4 @@
-package com.serezk4.collection.model;
+package com.serezk4.database.model;
 
 import com.serezk4.collection.id.IdGenerator;
 
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -17,13 +18,31 @@ import java.util.Objects;
  * @see Location
  */
 public class Person implements Comparable<Person>, Serializable {
+
+    public Person() {
+    }
+
+    public Person(int id, long ownerId, String name, Coordinates coordinates, Date creationDate, int height, int weight, Color color, Country country, Location location) {
+        this.id = id;
+        this.ownerId = ownerId;
+        this.name = name;
+        this.coordinates = coordinates;
+        this.height = height;
+        this.weight = weight;
+        this.creationDate = creationDate;
+        this.hairColor = color;
+        this.nationality = country;
+        this.location = location;
+    }
+
     /**
      * Person's creation date.
      *
      * @restriction Field can't be null.
      * @restriction Field must be generated automatically.
      */
-    private final LocalDate creationDate = LocalDate.now(ZoneId.systemDefault());
+    private Date creationDate = new Date();
+
     /**
      * Person's id.
      *
@@ -33,6 +52,26 @@ public class Person implements Comparable<Person>, Serializable {
      * @restriction Field can't be null.
      */
     private int id;
+
+    private long ownerId;
+    private transient User user;
+
+    public long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     /**
      * Person's name.
      *
@@ -40,12 +79,14 @@ public class Person implements Comparable<Person>, Serializable {
      * @restriction Field can't be empty.
      */
     private String name;
+
     /**
      * Person's coordinates.
      *
      * @restriction Field can't be null.
      */
     private Coordinates coordinates;
+
     /**
      * Person's height.
      *
@@ -53,22 +94,26 @@ public class Person implements Comparable<Person>, Serializable {
      * @restriction Field must be greater than 0.
      */
     private Integer height;
+
     /**
      * Person's weight.
      *
      * @restriction Field must be greater than 0.
      */
     private int weight;
+
     /**
      * Person's eye color.
      *
      * @restriction Field can't be null.
      */
     private Color hairColor;
+
     /**
      * Person's country
      */
     private Country nationality;
+
     /**
      * Person's location.
      */
@@ -149,7 +194,7 @@ public class Person implements Comparable<Person>, Serializable {
      *
      * @return Person's creation date.
      */
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
