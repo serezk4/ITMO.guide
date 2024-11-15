@@ -62,6 +62,7 @@ public final class ConnectionManager {
     private ConnectionManager() {
         try {
             Class.forName("org.postgresql.Driver");
+            log.info(DatabaseConfiguration.POSTGRES_URL);
             this.connection = DriverManager.getConnection(
                     DatabaseConfiguration.POSTGRES_URL,
                     DatabaseConfiguration.POSTGRES_USER,
@@ -69,6 +70,7 @@ public final class ConnectionManager {
             );
         } catch (ClassNotFoundException | SQLException e) {
             log.error("Database connection error: {}", e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
     }

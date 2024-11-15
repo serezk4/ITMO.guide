@@ -1,5 +1,8 @@
 package com.serezk4.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Provides database configuration details for connecting to a PostgreSQL database.
  *
@@ -49,7 +52,7 @@ public final class DatabaseConfiguration {
      * @see <a href="https://jdbc.postgresql.org/documentation/head/connect.html">
      * PostgreSQL JDBC Connection</a>
      */
-    public static final String POSTGRES_URL = "jdbc:postgresql://%s:%s/%s".formatted(
+    public static final String POSTGRES_URL = "jdbc:postgresql://%s:%s/%s?ssl=false".formatted(
             System.getenv("DB_HOST"),
             System.getenv("DB_PORT"),
             System.getenv("DB_NAME")

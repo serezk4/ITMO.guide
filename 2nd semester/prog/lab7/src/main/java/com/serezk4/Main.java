@@ -1,6 +1,7 @@
 package com.serezk4;
 
 import com.serezk4.chat.Handler;
+import com.serezk4.database.ConnectionManager;
 import com.serezk4.io.IOWorker;
 import com.serezk4.io.console.BufferedConsoleWorker;
 import com.serezk4.io.console.ConsoleWorker;
@@ -10,6 +11,7 @@ import com.serezk4.io.socket.client.ClientConfiguration;
 import com.serezk4.io.socket.server.Server;
 import com.serezk4.io.socket.server.ServerConfiguration;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: timescale/timescaledb-ha:pg16
+    restart: always
+    container_name: postgres
+    ports:
+      - "1488:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ${CONFIG_BASE_PATH}/service/postgres/init:/docker-entrypoint-initdb.d
+      - ${CONFIG_BASE_PATH}/service/postgres/init/postgresql.conf:/etc/postgresql/postgresql.conf
+    env_file:
+      - ${CONFIG_BASE_PATH}/service/postgres/secret/postgres-secret.env
+      - ${CONFIG_BASE_PATH}/service/postgres/postgres.env
+    environment:
+      - PGDATA=/var/lib/postgresql/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+
+volumes:
+  postgres_data:
+    driver: local
