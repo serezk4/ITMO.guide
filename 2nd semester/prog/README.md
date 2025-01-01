@@ -10,15 +10,13 @@
 - [Лабораторная работа 5](lab5/README.md) 
     - [Исходный код](lab5/)
     - [Вариант 5](lab5/lab5__variant.md)
-- [Лабораторная работа 6](lab6/README.md) `NOT AVAILABLE YET`
+- [Лабораторная работа 6](lab6/README.md)
     - [Исходный код](lab6/)
     - [Вариант 6](lab6/lab6__variant.md)
-- [Лабораторная работа 7](lab7/README.md) `NOT AVAILABLE YET`
+- [Лабораторная работа 7](lab7/README.md)
     - [Исходный код](lab7/)
     - [Вариант 7](lab7/lab7__variant.md)
-- [Лабораторная работа 8](lab8/README.md) `NOT AVAILABLE YET`
-    - [Исходный код](lab8/)
-    - [Вариант 8](lab8/lab8__variant.md)
+- Лабораторная работа 8 - ручками делаем интерфейс и прикручиваем к клиенту [Лабораторная работа 7](lab7/README.md)
 
 ## Рубежки
 
